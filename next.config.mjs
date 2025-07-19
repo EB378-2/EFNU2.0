@@ -18,7 +18,6 @@ const baseConfig = {
         { key: 'X-Content-Type-Options', value: 'nosniff' },
         { key: 'X-Frame-Options', value: 'DENY' },
         { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-        { key: 'Content-Security-Policy', value: "default-src 'self' https://cdn.onesignal.com; script-src 'self' https://cdn.onesignal.com; connect-src 'self' https://onesignal.com https://*.onesignal.com; img-src 'self' data: https://cdn.onesignal.com;" },
       ],
     },
     {
