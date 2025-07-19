@@ -25,6 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Add your manifest link here with absolute path */}
+        <link rel="manifest" href="/manifest.webmanifest" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
