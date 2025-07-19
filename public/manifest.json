@@ -1,0 +1,23 @@
+{
+  "name":"EFNU Airport App",
+  "short_name":"EFNU",
+  "description":"EFNU WebApp and Intranet Portal",
+  "theme_color":"#eeeeee",
+  "background_color":"#cccccc",
+  "display":"fullscreen",
+  "scope":"/",
+  "start_url":"/",
+  "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
+  
