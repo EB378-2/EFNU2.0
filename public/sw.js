@@ -1,3 +1,6 @@
+importScripts('https://cdn.onesignal.com/sdks/OneSignalSDKWorker.js')
+
+
 const CACHE_NAME = 'efnu-cache-v1'
 
 // ✅ Only static public files here
