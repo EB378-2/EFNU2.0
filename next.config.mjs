@@ -1,3 +1,5 @@
+
+
 // next.config.mjs
 import createNextIntlPlugin from 'next-intl/plugin';
 
@@ -6,18 +8,6 @@ const nextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const baseConfig = {
-  output: 'standalone',
-  reactStrictMode: true,
-  productionBrowserSourceMaps: false,
-  compress: true,
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'atis.efnu.fi',
-      },
-    ],
-  },
   headers: async () => [
     {
       source: '/(.*)',
