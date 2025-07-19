@@ -1,36 +1,36 @@
 'use client'
- 
-import { useState, useEffect } from 'react'
+
+import React, { useState, useEffect, ChangeEvent } from 'react'
+import type { JSX } from 'react'
 import { subscribeUser, unsubscribeUser, sendNotification } from './actions'
- 
-function urlBase64ToUint8Array(base64String: string) {
+
+function urlBase64ToUint8Array(base64String: string): Uint8Array {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
- 
+
   const rawData = window.atob(base64)
   const outputArray = new Uint8Array(rawData.length)
- 
+
   for (let i = 0; i < rawData.length; ++i) {
     outputArray[i] = rawData.charCodeAt(i)
   }
+
   return outputArray
 }
 
-function PushNotificationManager() {
-  const [isSupported, setIsSupported] = useState(false)
-  const [subscription, setSubscription] = useState<PushSubscription | null>(
-    null
-  )
-  const [message, setMessage] = useState('')
- 
+function PushNotificationManager(): JSX.Element {
+  const [isSupported, setIsSupported] = useState<boolean>(false)
+  const [subscription, setSubscription] = useState<PushSubscription | null>(null)
+  const [message, setMessage] = useState<string>('')
+
   useEffect(() => {
     if ('serviceWorker' in navigator && 'PushManager' in window) {
       setIsSupported(true)
-      registerServiceWorker()
+      registerServiceWorker().catch(console.error)
     }
   }, [])
- 
-  async function registerServiceWorker() {
+
+  async function registerServiceWorker(): Promise<void> {
     const registration = await navigator.serviceWorker.register('/sw.js', {
       scope: '/',
       updateViaCache: 'none',
@@ -38,8 +38,8 @@ function PushNotificationManager() {
     const sub = await registration.pushManager.getSubscription()
     setSubscription(sub)
   }
- 
-  async function subscribeToPush() {
+
+  async function subscribeToPush(): Promise<void> {
     const registration = await navigator.serviceWorker.ready
     const sub = await registration.pushManager.subscribe({
       userVisibleOnly: true,
@@ -51,24 +51,24 @@ function PushNotificationManager() {
     const serializedSub = JSON.parse(JSON.stringify(sub))
     await subscribeUser(serializedSub)
   }
- 
-  async function unsubscribeFromPush() {
+
+  async function unsubscribeFromPush(): Promise<void> {
     await subscription?.unsubscribe()
     setSubscription(null)
     await unsubscribeUser()
   }
- 
-  async function sendTestNotification() {
+
+  async function sendTestNotification(): Promise<void> {
     if (subscription) {
       await sendNotification(message)
       setMessage('')
     }
   }
- 
+
   if (!isSupported) {
     return <p>Push notifications are not supported in this browser.</p>
   }
- 
+
   return (
     <div>
       <h3>Push Notifications</h3>
@@ -80,7 +80,9 @@ function PushNotificationManager() {
             type="text"
             placeholder="Enter notification message"
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setMessage(e.target.value)
+            }
           />
           <button onClick={sendTestNotification}>Send Test</button>
         </>
@@ -94,22 +96,21 @@ function PushNotificationManager() {
   )
 }
 
-function InstallPrompt() {
-  const [isIOS, setIsIOS] = useState(false)
-  const [isStandalone, setIsStandalone] = useState(false)
- 
+function InstallPrompt(): JSX.Element | null {
+  const [isIOS, setIsIOS] = useState<boolean>(false)
+  const [isStandalone, setIsStandalone] = useState<boolean>(false)
+
   useEffect(() => {
     setIsIOS(
-      /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+      /iPad|iPhone|iPod/.test(navigator.userAgent) && !("MSStream" in window)
     )
- 
+
     setIsStandalone(window.matchMedia('(display-mode: standalone)').matches)
   }, [])
- 
-  if (isStandalone) {
-    return null // Don't show install button if already installed
-  }
- 
+
+
+  if (isStandalone) return null
+
   return (
     <div>
       <h3>Install App</h3>
@@ -117,22 +118,16 @@ function InstallPrompt() {
       {isIOS && (
         <p>
           To install this app on your iOS device, tap the share button
-          <span role="img" aria-label="share icon">
-            {' '}
-            ⎋{' '}
-          </span>
+          <span role="img" aria-label="share icon"> ⎋ </span>
           and then &quot;Add to Home Screen&quot;
-          <span role="img" aria-label="plus icon">
-            {' '}
-            ➕{' '}
-          </span>.
+          <span role="img" aria-label="plus icon"> ➕ </span>.
         </p>
       )}
     </div>
   )
 }
- 
-export default function Page() {
+
+export default function Page(): JSX.Element {
   return (
     <div>
       <PushNotificationManager />
