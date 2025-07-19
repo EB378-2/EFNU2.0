@@ -8,6 +8,9 @@ const nextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const baseConfig = {
+  experimental: {
+    useCache: true,
+  },
   headers: async () => [
     {
       source: '/(.*)',
