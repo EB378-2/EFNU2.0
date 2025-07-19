@@ -1,4 +1,6 @@
 const CACHE_NAME = 'efnu-cache-v1'
+
+// ✅ Only static public files here
 const STATIC_ASSETS = [
   '/',
   '/offline.html',
@@ -12,13 +14,18 @@ const STATIC_ASSETS = [
   '/window.svg',
 ]
 
-const ROUTES_TO_PRECACHE = ['/en', '/fi']
-
-
-
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll([...STATIC_ASSETS, ...ROUTES_TO_PRECACHE]))
+    (async () => {
+      const cache = await caches.open(CACHE_NAME)
+      for (const url of STATIC_ASSETS) {
+        try {
+          await cache.add(url)
+        } catch (err) {
+          console.warn(`⚠️ Failed to cache ${url}`, err)
+        }
+      }
+    })()
   )
   self.skipWaiting()
 })
@@ -34,32 +41,25 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const req = event.request
-
-  // Only GET requests
   if (req.method !== 'GET') return
 
   const acceptHeader = req.headers.get('accept') || ''
 
   if (acceptHeader.includes('text/html')) {
-    // Handle dynamic routes like /en/page
+    // 📄 For dynamic pages (like /en/page)
     event.respondWith(
       fetch(req)
         .then((res) => {
           const resClone = res.clone()
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(req, resClone)
-          })
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone))
           return res
         })
-        .catch(() => {
-          // fallback to cache or offline.html
-          return caches.match(req).then((cachedRes) => {
-            return cachedRes || caches.match('/offline.html')
-          })
-        })
+        .catch(() =>
+          caches.match(req).then((cachedRes) => cachedRes || caches.match('/offline.html'))
+        )
     )
   } else {
-    // Handle static assets (JS, CSS, images)
+    // 📦 For static assets (images, CSS, etc.)
     event.respondWith(
       caches.match(req).then((cached) => {
         return (
@@ -83,8 +83,7 @@ self.addEventListener('fetch', (event) => {
 })
 
 
-// === YOUR PUSH NOTIFICATION CODE (unchanged) ===
-
+// ✅ Push Notification Code (unchanged)
 self.addEventListener('push', function (event) {
   if (event.data) {
     const data = event.data.json()
