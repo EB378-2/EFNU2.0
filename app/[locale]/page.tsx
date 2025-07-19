@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, ChangeEvent } from 'react'
 import type { JSX } from 'react'
-import { subscribeUser, unsubscribeUser, sendNotification } from './actions'
+import { subscribeUser, unsubscribeUser, sendNotification } from '../actions'
+import { useTranslations } from 'next-intl'
 
 function urlBase64ToUint8Array(base64String: string): Uint8Array {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
@@ -22,6 +23,7 @@ function PushNotificationManager(): JSX.Element {
   const [isSupported, setIsSupported] = useState<boolean>(false)
   const [subscription, setSubscription] = useState<PushSubscription | null>(null)
   const [message, setMessage] = useState<string>('')
+  const t = useTranslations('PushNotifications')
 
   useEffect(() => {
     if ('serviceWorker' in navigator && 'PushManager' in window) {
@@ -84,7 +86,7 @@ function PushNotificationManager(): JSX.Element {
               setMessage(e.target.value)
             }
           />
-          <button onClick={sendTestNotification}>Send Test</button>
+          <button onClick={sendTestNotification}>{t("SendTest")}</button>
         </>
       ) : (
         <>
