@@ -39,7 +39,7 @@ function PushNotificationManager(): JSX.Element {
   }, [])
 
   async function registerServiceWorker(): Promise<void> {
-    const registration = await navigator.serviceWorker.register('/sw.js', {
+    const registration = await navigator.serviceWorker.register('/OneSignalSDKWorker.js', {
       scope: '/',
       updateViaCache: 'none',
     })
