@@ -16,7 +16,7 @@ import {
 import { useCreate } from '@refinedev/core';
 import { Delete, CloudUpload } from '@mui/icons-material';
 import dayjs from 'dayjs';
-import { Blog } from '@/types';
+import { Blog } from '@/types/Blog';
 import { useGetIdentity } from '@refinedev/core';
 
 const BlogCreateModal = ({ 

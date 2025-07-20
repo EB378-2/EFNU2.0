@@ -26,7 +26,7 @@ import { useNotification, useGetIdentity } from "@refinedev/core";
 import { useTranslations } from "next-intl";
 import { useTheme } from "@hooks/useTheme";
 import { useParams, useRouter } from "next/navigation";
-import { ProfileData } from '@/types/index';
+import { ProfileData } from '@/types/Profile';
 
 export default function ProfileEditPage() {
   const t = useTranslations("Profile");

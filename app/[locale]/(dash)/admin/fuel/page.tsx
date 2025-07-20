@@ -15,7 +15,7 @@ import {
 import { useList, useOne } from "@refinedev/core";
 import dayjs from "dayjs";
 import { useTheme } from "@hooks/useTheme";
-import { FuelOption, FuelItem } from '@/types/index';
+import { FuelOption, FuelItem } from '@/types/Fuel';
 import { ProfileName } from "@components/functions/FetchFunctions";
 import { TableFooter, Pagination } from "@mui/material";
 import { DeleteButton } from "@refinedev/mui";

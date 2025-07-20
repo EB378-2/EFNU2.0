@@ -18,7 +18,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useTheme } from "@mui/material/styles";
 import { DeleteButton, EditButton } from "@refinedev/mui";
-import { PriorNotice } from "@/types/index";
+import { PriorNotice } from "@/types/PriorNotice";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import React, { Suspense } from 'react';

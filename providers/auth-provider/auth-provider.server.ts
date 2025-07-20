@@ -1,5 +1,7 @@
 import type { AuthProvider } from "@refinedev/core";
 import { createSupabaseServerClient } from "@utils/supabase/server";
+import { cookies } from "next/headers";
+
 
 export const authProviderServer: Pick<AuthProvider, "check" | "getPermissions"> = {
   check: async () => {

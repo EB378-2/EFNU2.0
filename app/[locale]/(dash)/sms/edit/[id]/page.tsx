@@ -26,11 +26,7 @@ import { format } from "date-fns";
 import { useParams } from "next/navigation";
 import { ProfileName } from "@components/functions/FetchFunctions";
 import React, { useState, useEffect } from "react";
-import {
-  CreateSafetyReport,
-  SeverityLevel,
-  ReportCategory,
-} from "@/types"; // Adjust the import path as necessary
+import { SeverityLevel, ReportCategory } from "@/types/SafetyReport"; // Adjust the import path as necessary
 import { useTranslations } from "next-intl";
 
 const ReportEditPage = () => {

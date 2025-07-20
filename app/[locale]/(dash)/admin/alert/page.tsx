@@ -2,10 +2,9 @@
 
 import React, { useState, useMemo } from "react";
 import { 
-  Box, Typography, Grid, Card, CardContent, LinearProgress,
+  Box, Typography, Grid, Card, CardContent,
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-  Paper, Chip, IconButton, Button, Tooltip, Avatar,
-  TextField, MenuItem, Badge
+  Paper, Chip, IconButton, Button, Tooltip, Avatar
 } from "@mui/material";
 import { 
   Warning, Error, Info, Schedule, Refresh, 
@@ -15,7 +14,7 @@ import {
 import { useList } from "@refinedev/core";
 import dayjs from "dayjs";
 import { useTheme } from "@hooks/useTheme";
-import { AlertItem } from '@types';
+import { AlertItem } from '@/types/Alerts';
 import { TableFooter, Pagination } from "@mui/material";
 import { DeleteButton } from "@refinedev/mui";
 import AlertEditModal from "@components/AdminComponents/AlertEditModal"; // Assume we have this component
@@ -67,7 +66,8 @@ const AlertAdminDashboard = () => {
       resolved: resolvedHistoryData?.total || 0,
       verified: verifiedHistoryData?.total || 0
     };
-  }, [alertsData, resolvedHistoryData]);
+  }, [alertsData, resolvedHistoryData, verifiedHistoryData]);
+
 
   // Get color based on severity
   const getSeverityColor = (severity: string) => {

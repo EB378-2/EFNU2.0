@@ -27,16 +27,7 @@ import Person from "@mui/icons-material/Person";
 import Share from "@mui/icons-material/Share";
 import { useTranslations } from "next-intl";
 import { ProfileAvatar, ProfileEmail, ProfileLicense, ProfileName, ProfilePhone, ProfileRole } from "@components/functions/FetchFunctions";
-
-type Blog = {
-  id: string;
-  title: string;
-  content: string;
-  image_link: string | null;
-  published_at: string | null;
-  created_at: string;
-  uid: string;
-};
+import { Blog } from "@/types/Blog";
 
 const BlogShowPage = () => {
   const theme = useTheme();

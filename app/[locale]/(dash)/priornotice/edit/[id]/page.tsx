@@ -20,29 +20,13 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Controller } from 'react-hook-form';
 import { useTheme } from '@hooks/useTheme';
-import { PriorNotice, ProfileData } from "@/types/index";
+import { PriorNotice } from "@/types/PriorNotice";
+import { ProfileData, UserPNProfile, UserAircraft, ProfileOption } from '@/types/Profile';
 import { useTranslations } from 'next-intl';
 import { useRouter, useParams } from 'next/navigation';
 import { useAircraftMTOW, useProfilePNAircraft, useProfilePNPIC } from '@components/functions/FetchFunctions';
 import { useGetIdentity, useUpdate, useNotification, useList, useCreate } from '@refinedev/core';
 
-type UserProfile = {
-  id: string;
-  aircraft: string[];
-  presaved: {
-    PIC: string[];
-  };
-};
-
-type Aircraft = {
-  id: string;
-  mtow: number;
-};
-
-type ProfileOption = {
-  id: string;
-  label: string;
-};
 
 const PNEdit = () => {
   const t = useTranslations('PN');
@@ -51,8 +35,8 @@ const PNEdit = () => {
   const { id: pnID } = useParams<{ id: string }>();
   const { data: identityData } = useGetIdentity<{ id: string }>();
   const { open } = useNotification();
-  const { mutate: updateProfile } = useUpdate<UserProfile>();
-  const { mutate: createAircraft } = useCreate<Aircraft>();
+  const { mutate: updateProfile } = useUpdate<UserPNProfile>();
+  const { mutate: createAircraft } = useCreate<UserAircraft>();
 
   const [aircraftOptions, setAircraftOptions] = useState<string[]>([]);
   const [profilesOptions, setProfileOptions] = useState<ProfileOption[]>([]);
@@ -64,7 +48,7 @@ const PNEdit = () => {
   const [isCustomAircraft, setIsCustomAircraft] = useState<boolean>(false);
 
   // Fetch all aircraft from the database
-  const { data: aircraftData, isLoading: isLoadingAircraft } = useList<Aircraft>({
+  const { data: aircraftData, isLoading: isLoadingAircraft } = useList<UserAircraft>({
     resource: 'aircraft',
     pagination: {
       mode: 'off',
@@ -124,8 +108,8 @@ const PNEdit = () => {
         setValue('mtow', undefined, { shouldValidate: true });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAircraft, aircraftData]);
-
   // Initialize PIC options
   useEffect(() => {
     if (PICPersons && PICPersons.length > 0) {

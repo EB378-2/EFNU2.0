@@ -26,7 +26,7 @@ import { formatDistanceToNow } from "date-fns";
 import { useTable, LogicalFilter, useGetIdentity } from "@refinedev/core";
 import { CreateButton } from "@refinedev/mui";
 import { ProfileName } from "@components/functions/FetchFunctions";
-import { SafetyReport } from "@/types";
+import { SafetyReport } from "@/types/SafetyReport";
 import { useTranslations } from "next-intl";
 
 // ------------------ Component ------------------
@@ -95,6 +95,7 @@ const ReportListPage = () => {
     }
 
     setFilters(filters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
   const reports = tableQueryResult?.data?.data || [];

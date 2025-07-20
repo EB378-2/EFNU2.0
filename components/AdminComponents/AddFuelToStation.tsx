@@ -15,7 +15,7 @@ import { useTranslations } from "next-intl";
 import {
     LocalGasStation,
 } from "@mui/icons-material";
-import { FuelOption, FuelingValues } from '@/types/index';
+import { FuelOption, FuelingValues } from '@/types/Fuel';
 import { useRouter } from "next/navigation";
 
 

@@ -1,20 +1,14 @@
 "use client";
 
+
 import React from "react";
 import { useGetIdentity, useOne } from "@refinedev/core";
 import resources from '@/resources';
+import { QuickButton } from "@/types/QuickButton";
 
 const DEFAULT_BUTTON_KEYS = ["notams", "priornotice", "webcam", "lights", "flyk", "weather"];
 
-type QuickButton = {
-  icon: React.ReactElement;
-  label: string;
-  path: string;
-  name: string;
-};
-
 export default function QuickAccessButtons() {
-
   type UserIdentity = { id: string };
   const { data: userIdentity } = useGetIdentity<UserIdentity>();
   const menuResources = resources;

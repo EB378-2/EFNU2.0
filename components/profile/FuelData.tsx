@@ -24,7 +24,7 @@ import {
   Bar, 
   Cell
 } from "recharts";
-import { FuelingValues, ProcessedFuelData, FuelTypeUsage } from '@/types/index';
+import { FuelingValues, ProcessedFuelData, FuelTypeUsage, FuelType } from '@/types/Fuel';
 import { useTranslations } from "next-intl";
 
 const getMonthLabel = (date: Date): string => {
@@ -32,11 +32,6 @@ const getMonthLabel = (date: Date): string => {
          date.getFullYear().toString().slice(-2);
 };
 
-interface FuelType {
-  id: string;
-  label: string;
-  color: string;
-}
 
 export function FuelData({ profileId }: { profileId: string }) {
   const t = useTranslations("Profile");

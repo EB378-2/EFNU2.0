@@ -39,7 +39,7 @@ import { FuelData } from "@components/profile/FuelData";
 import { PasswordChangeBlock } from "@components/profile/PasswordChange";
 import LanguageSwitcher from "@components/ui/LanguageSwitcher";
 import { useTranslations } from "next-intl";
-import QuickAccessSettings from "@/components/QuickAccessSettings";
+import QuickAccessSettings from "@components/profile/QuickAccessSettings";
 import { Spinner } from "@components/ui/Spinner";
 
 

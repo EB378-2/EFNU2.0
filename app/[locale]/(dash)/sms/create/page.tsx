@@ -21,7 +21,7 @@ import { useForm } from "@refinedev/react-hook-form";
 import { Controller } from "react-hook-form";
 import { useGetIdentity } from "@refinedev/core";
 import React, { useState } from "react";
-import { CreateSafetyReport, SeverityLevel, ReportCategory } from "@/types"; // Adjust the import path as necessary
+import { CreateSafetyReport, SeverityLevel, ReportCategory } from "@/types/SafetyReport"; // Adjust the import path as necessary
 import { useTranslations } from "next-intl";
 
 const ReportCreatePage = () => {

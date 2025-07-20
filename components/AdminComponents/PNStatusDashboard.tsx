@@ -16,7 +16,7 @@ import {
 import { Flight } from "@mui/icons-material";
 import dayjs from "dayjs";
 import React, { useState } from "react";
-import { PriorNotice } from "@/types/index";
+import { PriorNotice } from "@/types/PriorNotice";
 
 const PNStatusDashboard = () => {
   const theme = useTheme();

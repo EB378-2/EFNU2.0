@@ -13,7 +13,7 @@ import { useTable, useNotification } from '@refinedev/core';
 import { EditButton, DeleteButton } from '@refinedev/mui';
 import { useState } from 'react';
 import { ProfileAvatar } from '@components/functions/FetchFunctions';
-import { ProfileData } from '@/types/index';
+import { ProfileData } from '@/types/Profile';
 import CreateUserModalWithButton from '@components/AdminComponents/CreateUserModalWithButton';
 
 const statusColors: Record<ProfileData['status'], 'success' | 'warning' | 'error'> = {

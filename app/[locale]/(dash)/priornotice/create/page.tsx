@@ -18,29 +18,13 @@ import {
 } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import { useTheme } from '@hooks/useTheme';
-import { PriorNotice, ProfileData } from "@/types/index";
+import { ProfileData } from "@/types/Profile";
+import { PriorNotice } from '@/types/PriorNotice';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useAircraftMTOW, useProfilePNAircraft, useProfilePNPIC } from '@components/functions/FetchFunctions';
-import { useGetIdentity, useUpdate, useNotification, useShow, useList, useCreate } from '@refinedev/core';
-
-type UserProfile = {
-  id: string;
-  aircraft: string[];
-  presaved: {
-    PIC: string[];
-  };
-};
-
-type Aircraft = {
-  id: string;
-  mtow: number;
-};
-
-type ProfileOption = {
-  id: string;
-  label: string;
-};
+import { useGetIdentity, useUpdate, useNotification, useList, useCreate } from '@refinedev/core';
+import { UserPNProfile, UserAircraft, ProfileOption } from '@/types/Profile';
 
 const PNCreate = () => {
   const t = useTranslations('PN');
@@ -48,8 +32,8 @@ const PNCreate = () => {
   const router = useRouter();
   const { data: identityData } = useGetIdentity<{ id: string }>();
   const { open } = useNotification();
-  const { mutate: updateProfile } = useUpdate<UserProfile>();
-  const { mutate: createAircraft } = useCreate<Aircraft>();
+  const { mutate: updateProfile } = useUpdate<UserPNProfile>();
+  const { mutate: createAircraft } = useCreate<UserAircraft>();
 
   const [aircraftOptions, setAircraftOptions] = useState<string[]>([]);
   const [profilesOptions, setProfileOptions] = useState<ProfileOption[]>([]);
@@ -61,7 +45,7 @@ const PNCreate = () => {
   const [isCustomAircraft, setIsCustomAircraft] = useState<boolean>(false);
 
   // Fetch all aircraft from the database
-  const { data: aircraftData, isLoading: isLoadingAircraft } = useList<Aircraft>({
+  const { data: aircraftData, isLoading: isLoadingAircraft } = useList<UserAircraft>({
     resource: 'aircraft',
     pagination: {
       mode: 'off',
@@ -125,6 +109,7 @@ const PNCreate = () => {
         setValue('mtow', undefined, { shouldValidate: true });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAircraft, aircraftData]);
 
   // Initialize PIC options

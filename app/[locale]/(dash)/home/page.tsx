@@ -7,25 +7,24 @@ import {
   Button,
   Stack,
   Grid,
-  Card,
-  CardContent
+  Card
 } from "@mui/material";
 import { useTheme } from "@hooks/useTheme";
 import { useTranslations } from "next-intl";
 import { useList } from "@refinedev/core";
 import { useRouter } from "next/navigation";
-import { format, parse } from "date-fns";
-import { Blog, QuickButton, LocalBlog, CalendarEvent } from "@types";
+import { format } from "date-fns";
+import { CalendarEvent } from "@/types/Calendar";
+import { LocalBlog } from "@/types/Blog";
+import { QuickButton } from "@/types/QuickButton";
 import {
-  getfinishDate,
   getfinishTime,
   getlocalDate,
   getlocalTime,
-  getutcDate,
   getutcTime
 } from "@components/home/time";
 import SunriseSunsetCard from "@components/home/SunriseSunsetCard"
-import QuickAccessButtons from "@components/QuickAccessButtons";
+import QuickAccessButtons from "@components/home/QuickAccessButtons";
 import AlertCreateModal from "@components/home/CreateAlertPublicModal";
 import { Suspense } from 'react';
 import { Spinner } from "@/components/ui/Spinner";

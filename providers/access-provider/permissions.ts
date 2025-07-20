@@ -1,3 +1,4 @@
+//providers/access-provider/permissions.ts
 import { newModel, StringAdapter } from "casbin";
 
 export const model = newModel(`

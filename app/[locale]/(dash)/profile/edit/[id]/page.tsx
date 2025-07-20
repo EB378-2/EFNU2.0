@@ -22,7 +22,7 @@ import { Controller } from "react-hook-form";
 import { useGetIdentity } from "@refinedev/core";
 import { useTranslations } from "next-intl";
 import { useTheme } from "@hooks/useTheme";
-import { ProfileData } from '@/types/index';
+import { ProfileData } from '@/types/Profile';
 
 
 export default function ProfileEditPage() {

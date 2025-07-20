@@ -10,7 +10,7 @@ import { CanAccess, useGetIdentity, useList, useUpdate } from '@refinedev/core';
 import { Warning, Error, Info, Schedule, Close } from '@mui/icons-material';
 import { useTheme } from '@hooks/useTheme';
 import { formatDistanceToNow } from 'date-fns';
-import { DeleteButton, EditButton } from '@refinedev/mui';
+import { EditButton } from '@refinedev/mui';
 import { useTranslations } from 'next-intl';
 
 const AlertTabModal = () => {

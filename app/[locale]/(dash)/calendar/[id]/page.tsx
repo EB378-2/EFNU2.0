@@ -49,34 +49,7 @@ import { useTranslations } from "next-intl";
 import { ProfileAvatar, ProfileName, ProfileEmail } from "@components/functions/FetchFunctions";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
-
-type CalendarEvent = {
-  id: string;
-  title: string;
-  description: string;
-  start_time: string;
-  end_time: string;
-  is_all_day: boolean;
-  location: string;
-  event_type: string;
-  status: string;
-  timezone: string;
-  organizer_id: string;
-  image_link?: string;
-};
-
-type EventFormData = {
-  id: string;
-  title: string;
-  description: string;
-  start_time: Date;
-  end_time: Date;
-  is_all_day: boolean;
-  location: string;
-  event_type: string;
-  status: string;
-  timezone: string;
-};
+import { CalendarEvent, EventFormData } from "@/types/Calendar";
 
 const EventShowPage = () => {
   const theme = useTheme();

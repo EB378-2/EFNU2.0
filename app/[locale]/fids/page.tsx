@@ -13,10 +13,10 @@ import {
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useTheme } from "@mui/material/styles";
-import { PriorNotice } from "@/types/index";
+import { PriorNotice } from "@/types/PriorNotice";
 import { useTranslations } from "next-intl";
-import MiniNotamCard from "@/components/MiniNotamCard";
-import AlertModal from "@/components/AlertTabModal"; // Adjust path as needed
+import MiniNotamCard from "@components/fids/MiniNotamCard";
+import AlertModal from "@components/Layout/AlertTabModal"; // Adjust path as needed
 dayjs.extend(relativeTime);
 
 const AirportBuletin = () => {

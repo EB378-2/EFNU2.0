@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { Warning, Edit } from "@mui/icons-material";
 import { useShow, useNavigation } from "@refinedev/core";
-import { useOne } from "@refinedev/core";
 import { format } from "date-fns";
 import { useParams } from "next/navigation";
 import { ProfileName } from "@components/functions/FetchFunctions";

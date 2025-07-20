@@ -43,12 +43,12 @@ import {
 import { useTable, useDelete, useNotification, useUpdate } from '@refinedev/core';
 import { useForm } from '@refinedev/react-hook-form';
 import { Controller } from 'react-hook-form';
-import React, { useEffect, useState } from 'react';
-import { PriorNotice } from '@/types/index';
+import React, { useState } from 'react';
+import { PriorNotice } from '@/types/PriorNotice';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
-import { di } from '@node_modules/@fullcalendar/core/internal-common';
+
 dayjs.extend(utc);
 dayjs.extend(isSameOrAfter);
 

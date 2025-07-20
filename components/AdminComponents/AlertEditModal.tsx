@@ -3,7 +3,7 @@ import { Modal, Box, Grid, TextField, Button, Select, MenuItem, FormControl, Inp
 import { SelectChangeEvent } from '@mui/material/Select';
 import { useUpdate } from '@refinedev/core';
 import dayjs from 'dayjs';
-import { AlertItem } from '@/types';
+import { AlertItem } from '@/types/Alerts';
 
 const AlertEditModal = ({ 
   open, 

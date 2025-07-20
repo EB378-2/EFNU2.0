@@ -27,7 +27,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { format } from 'date-fns';
 import { ProfileAvatar, ProfileName } from "@components/functions/FetchFunctions";
-import { Blog } from "@/types";
+import { Blog } from "@/types/Blog";
 
 
 const BlogPage = () => {

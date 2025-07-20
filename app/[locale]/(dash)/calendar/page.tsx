@@ -50,38 +50,12 @@ import {
   NavigateBefore as PrevIcon,
   NavigateNext as NextIcon
 } from "@mui/icons-material";
-import { DatePicker, TimePicker, DateTimePicker } from "@mui/x-date-pickers";
+import { DatePicker, DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { format, addHours, isSameDay } from "date-fns";
 import { useRouter } from "next/navigation";
-
-type CalendarEvent = {
-  id: string;
-  title: string;
-  start_time: Date | string;
-  end_time: Date | string;
-  is_all_day: boolean;
-  description?: string;
-  location?: string;
-  event_type: string;
-  status: string;
-  timezone: string;
-  organizer_id: string;
-};
-
-type EventFormData = {
-  id: string;
-  title: string;
-  description: string;
-  start_time: Date;
-  end_time: Date;
-  is_all_day: boolean;
-  location: string;
-  event_type: string;
-  status: string;
-  timezone: string;
-};
+import { CalendarEvent, EventFormData } from "@/types/Calendar";
 
 const CalendarPage = () => {
   const theme = useTheme();

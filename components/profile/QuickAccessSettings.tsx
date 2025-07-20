@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Box,
   Checkbox,
@@ -26,7 +26,10 @@ export default function QuickAccessSettings() {
     queryOptions: { enabled: !!userIdentity?.id },
   });
 
-  const initialSelection = userData?.data?.quick_nav ?? [];
+  const initialSelection = useMemo(
+  () => userData?.data?.quick_nav ?? [],
+  [userData?.data?.quick_nav]
+);
   const [selected, setSelected] = useState<string[]>([]);
   const [saved, setSaved] = useState(false);
 

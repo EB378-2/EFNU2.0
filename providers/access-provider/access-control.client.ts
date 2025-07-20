@@ -1,7 +1,6 @@
 // providers/access-provider/access-control.client.ts
 'use client';
 import { CanParams, CanReturnType } from "@refinedev/core";
-import { useGetIdentity } from "@refinedev/core";
 
 interface AuthIdentity {
   id: string;

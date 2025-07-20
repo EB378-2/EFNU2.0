@@ -4,7 +4,7 @@ import { useForm } from "@refinedev/react-hook-form";
 import { useLogin, useRegister } from "@refinedev/core";
 import { TextField, Box, Button, Typography, Link, Divider } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { GoogleAuthButton } from "@components/GoogleAuthButton";
+import { GoogleAuthButton } from "@components/auth-page/GoogleAuthButton";
 
 type AuthPageProps = {
   type: "login" | "register";

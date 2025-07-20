@@ -44,7 +44,7 @@ import dayjs from "dayjs";
 import { useTheme } from "@mui/material/styles";
 import BlogEditModal from "@components/AdminComponents/BlogEditModal";
 import BlogCreateModal from "@components/AdminComponents/BlogCreateModal";
-import { Blog } from "@/types";
+import { Blog } from "@/types/Blog";
 import { ProfileAvatar, ProfileName } from "@components/functions/FetchFunctions";
 
 const BlogAdminDashboard = () => {

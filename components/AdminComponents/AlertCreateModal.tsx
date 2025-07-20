@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Box, Grid, TextField, Button, Select, MenuItem, FormControl, InputLabel, Switch, FormControlLabel, Typography, SelectChangeEvent } from '@mui/material';
 import { useCreate } from '@refinedev/core';
 import dayjs from 'dayjs';
-import { AlertItem } from '@/types';
+import { AlertItem } from '@/types/Alerts';
 
 const AlertCreateModal = ({ 
   open, 

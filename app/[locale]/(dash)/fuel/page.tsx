@@ -49,7 +49,9 @@ import {
   AttachMoney as DollarIcon
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
-import { FuelOption, FuelingValues, FuelItem, OrganisationData, AircraftData } from '@/types/index';
+import { FuelOption, FuelingValues, FuelItem } from "@/types/Fuel";
+import { OrganisationData } from "@/types/Organisation";
+import { AircraftData } from "@/types/Aircraft";
 import { FuelName, ProfileName } from "@/components/functions/FetchFunctions";
 import { Controller, useWatch } from "react-hook-form";
 import Autocomplete from "@mui/material/Autocomplete";
