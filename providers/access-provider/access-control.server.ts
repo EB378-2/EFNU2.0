@@ -1,4 +1,4 @@
-// lib/access-control.server.ts
+// providers/access-provider/access-control.server.ts
 import { newEnforcer } from 'casbin';
 import { model, adapter } from './permissions';
 
@@ -28,7 +28,7 @@ export async function checkPermission({
 
     // 2. Check specific resource permission
     const resourceCheck = await enforcer.enforce(role, baseResource, formattedAction);
-    
+
     // 3. For specific instances, check ownership
     if (id && ['edit', 'delete', 'show'].includes(formattedAction)) {
       const instanceCheck = await enforcer.enforce(role, `${baseResource}/${id}`, formattedAction);

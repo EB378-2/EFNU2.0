@@ -1,4 +1,4 @@
-//providers/auth-provider/auth-provider.client.ts
+// /providers/auth-provider/auth-provider.client.ts
 "use client";
 
 import type { AuthProvider } from "@refinedev/core";
@@ -29,6 +29,9 @@ export const authProviderClient: AuthProvider & {
   logout: async () => {
     const supabase = await supabaseBrowserClient();
     const { error } = await supabase.auth.signOut();
+
+    localStorage.removeItem("user-role");
+    document.cookie = "user-role=; path=/; max-age=0;";
 
     if (error) {
       return { success: false, error };
@@ -83,8 +86,12 @@ export const authProviderClient: AuthProvider & {
     try {
       const { error } = await supabase.auth.getUser();
       if (error) return;
-      const { data } = await supabase.rpc("get_my_claim", { claim: "role" });
-      return data;
+      const { data: role } = await supabase.rpc("get_my_claim", { claim: "role" });
+      if (role) {
+        localStorage.setItem("user-role", role);
+        document.cookie = `user-role=${role}; path=/; max-age=3600`;
+      }
+      return role;
     } catch (error: any) {
       console.error(error);
       return;
@@ -113,13 +120,12 @@ export const authProviderClient: AuthProvider & {
     return { error };
   },
 
-  // ✅ Google ID Token Sign-in method
   signInWithGoogle: async ({ credential }) => {
     const supabase = await supabaseBrowserClient();
     const { data, error } = await supabase.auth.signInWithIdToken({
       provider: "google",
       token: credential,
-      nonce: "<NONCE>", // Replace this with your nonce if verifying
+      nonce: "<NONCE>",
     });
 
     if (error) {

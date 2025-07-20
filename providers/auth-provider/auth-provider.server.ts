@@ -1,7 +1,7 @@
+// /providers/auth-provider/auth-provider.server.ts
 import type { AuthProvider } from "@refinedev/core";
 import { createSupabaseServerClient } from "@utils/supabase/server";
 import { cookies } from "next/headers";
-
 
 export const authProviderServer: Pick<AuthProvider, "check" | "getPermissions"> = {
   check: async () => {
@@ -9,7 +9,7 @@ export const authProviderServer: Pick<AuthProvider, "check" | "getPermissions"> 
     const { data, error } = await supabase.auth.getUser();
     const { user } = data;
 
-    if (error) {
+    if (error || !user) {
       return {
         authenticated: false,
         logout: true,
@@ -17,37 +17,13 @@ export const authProviderServer: Pick<AuthProvider, "check" | "getPermissions"> 
       };
     }
 
-    if (user) {
-      return {
-        authenticated: true,
-      };
-    }
-
     return {
-      authenticated: false,
-      logout: true,
-      redirectTo: "/login",
+      authenticated: true,
     };
   },
 
   getPermissions: async () => {
-    const supabase = await createSupabaseServerClient();
-    try {
-        const { error } = await supabase.auth.getUser();
-
-        if (error) {
-            console.error(error);
-            return;
-        }
-
-        const { data } = await supabase.rpc("get_my_claim", {
-            claim: "role",
-        });
-
-        return data;
-    } catch (error: any) {
-        console.error(error);
-        return;
-    }
+    const role = cookies().get("user-role")?.value || "anonymous";
+    return role;
   },
 };

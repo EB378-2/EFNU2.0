@@ -2,11 +2,6 @@
 'use client';
 import { CanParams, CanReturnType } from "@refinedev/core";
 
-interface AuthIdentity {
-  id: string;
-  role?: string;
-}
-
 export const accessControlProvider = {
   can: async ({ resource, action, params }: CanParams): Promise<CanReturnType> => {
     try {
