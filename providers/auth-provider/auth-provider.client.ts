@@ -5,7 +5,7 @@ import { supabaseBrowserClient } from "../../utils/supabase/client";
 
 export const authProviderClient: AuthProvider = {
   login: async ({ email, password }) => {
-    const { data, error } = await supabaseBrowserClient.auth.signInWithPassword(
+    const { data, error } = await supabaseBrowserClient().auth.signInWithPassword(
       {
         email,
         password,
@@ -20,7 +20,7 @@ export const authProviderClient: AuthProvider = {
     }
 
     if (data?.session) {
-      await supabaseBrowserClient.auth.setSession(data.session);
+      await supabaseBrowserClient().auth.setSession(data.session);
 
       return {
         success: true,
@@ -38,7 +38,7 @@ export const authProviderClient: AuthProvider = {
     };
   },
   logout: async () => {
-    const { error } = await supabaseBrowserClient.auth.signOut();
+    const { error } = await supabaseBrowserClient().auth.signOut();
 
     if (error) {
       return {
@@ -54,7 +54,7 @@ export const authProviderClient: AuthProvider = {
   },
   register: async ({ email, password }) => {
     try {
-      const { data, error } = await supabaseBrowserClient.auth.signUp({
+      const { data, error } = await supabaseBrowserClient().auth.signUp({
         email,
         password,
       });
@@ -88,7 +88,7 @@ export const authProviderClient: AuthProvider = {
     };
   },
   check: async () => {
-    const { data, error } = await supabaseBrowserClient.auth.getUser();
+    const { data, error } = await supabaseBrowserClient().auth.getUser();
     const { user } = data;
 
     if (error) {
@@ -111,7 +111,7 @@ export const authProviderClient: AuthProvider = {
     };
   },
   getPermissions: async () => {
-    const user = await supabaseBrowserClient.auth.getUser();
+    const user = await supabaseBrowserClient().auth.getUser();
 
     if (user) {
       return user.data.user?.role;
@@ -120,7 +120,7 @@ export const authProviderClient: AuthProvider = {
     return null;
   },
   getIdentity: async () => {
-    const { data } = await supabaseBrowserClient.auth.getUser();
+    const { data } = await supabaseBrowserClient().auth.getUser();
 
     if (data?.user) {
       return {
