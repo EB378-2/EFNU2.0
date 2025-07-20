@@ -5,7 +5,6 @@ import type { Metadata } from "next";
 import React from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import OneSignalWrapper from '@/components/OneSignalWrapper'
 
 
 const geistSans = Geist({
@@ -34,7 +33,6 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <OneSignalWrapper />
       </body>
     </html>
   );

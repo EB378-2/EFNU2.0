@@ -24,27 +24,7 @@ function PushNotificationManager(): JSX.Element {
 
   const t = useTranslations('PushNotifications')
 
-  useEffect(() => {
-    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      setIsSupported(true)
-      registerServiceWorker().catch(console.error)
-    }
-
-    // Load cached history from localStorage
-    const stored = localStorage.getItem('notificationHistory')
-    if (stored) {
-      setHistory(JSON.parse(stored))
-    }
-  }, [])
-
-  async function registerServiceWorker(): Promise<void> {
-    const registration = await navigator.serviceWorker.register('/sw.js', {
-      scope: '/',
-      updateViaCache: 'none',
-    })
-    const sub = await registration.pushManager.getSubscription()
-    setSubscription(sub)
-  }
+ 
 
   async function subscribeToPush(): Promise<void> {
     const registration = await navigator.serviceWorker.ready
