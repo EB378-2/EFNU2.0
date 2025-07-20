@@ -1,12 +1,13 @@
-'use client'
+"use client";
 
-import React, { useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+
+
+import { NavigateToResource } from "@refinedev/nextjs-router";
+import { Authenticated } from "@refinedev/core";
+import React, { useEffect } from "react";
 import OneSignal from 'react-onesignal';
 
-
-export default function Page() {
-  const t = useTranslations('Home');
+export default function IndexPage() {
 
   useEffect(() => {
     // Ensure this code runs only on the client side
@@ -39,8 +40,8 @@ export default function Page() {
   }, []);
 
   return (
-    <div>
-      <h1>{t("title")}</h1>
-    </div>
-  );
+    <Authenticated key="home">
+        <NavigateToResource />
+    </Authenticated>
+  )
 }

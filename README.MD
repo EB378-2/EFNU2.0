@@ -1,4 +1,4 @@
-# efnu-nly-webapp
+# my-refine-nextjs-app.
 
 <div align="center" style="margin: 30px;">
     <a href="https://refine.dev">
@@ -45,3 +45,27 @@ To learn more about **Refine**, please check out the [Documentation](https://ref
 ## License
 
 MIT
+
+
+# Imports
+npm install @radix-ui/react-dropdown-menu lucide-react
+Framer motion
+next-intl
+npm i sharp
+npm install @fullcalendar/react @fullcalendar/daygrid @fullcalendar/timegrid @fullcalendar/interaction @fullcalendar/core
+npm i date-fns
+npm i react-player
+npm install @mui/x-charts
+----    npm i @fullcalendar/resource-timeline
+npm install @fullcalendar/react @fullcalendar/daygrid @fullcalendar/timegrid @fullcalendar/interaction date-fns recharts @mui/material @emotion/react @emotion/styled
+
+
+
+
+# how  to set roles:
+
+
+select set_claim('21bcd1b3-ed75-44d1-95e3-0257341c7622', 'claims_admin', 'true'); -> sets ability to edit
+
+
+select set_claim('21bcd1b3-ed75-44d1-95e3-0257341c7622', 'role', '"admin"'); user id, "role", role for user id

@@ -1,97 +1,73 @@
+//providers/auth-provider/auth-provider.client.ts
 "use client";
 
 import type { AuthProvider } from "@refinedev/core";
-import { supabaseBrowserClient } from "../../utils/supabase/client";
+import { supabaseBrowserClient } from "@utils/supabase/client";
 
-export const authProviderClient: AuthProvider = {
+export const authProviderClient: AuthProvider & {
+  signInWithGoogle?: (response: { credential: string }) => Promise<any>;
+} = {
   login: async ({ email, password }) => {
-    const { data, error } = await supabaseBrowserClient().auth.signInWithPassword(
-      {
-        email,
-        password,
-      }
-    );
+    const supabase = await supabaseBrowserClient();
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
     if (error) {
-      return {
-        success: false,
-        error,
-      };
+      return { success: false, error };
     }
 
     if (data?.session) {
-      await supabaseBrowserClient().auth.setSession(data.session);
-
-      return {
-        success: true,
-        redirectTo: "/",
-      };
+      await supabase.auth.setSession(data.session);
+      return { success: true, redirectTo: "/home" };
     }
 
-    // for third-party login
     return {
       success: false,
-      error: {
-        name: "LoginError",
-        message: "Invalid username or password",
-      },
+      error: { name: "LoginError", message: "Invalid username or password" },
     };
   },
+
   logout: async () => {
-    const { error } = await supabaseBrowserClient().auth.signOut();
+    const supabase = await supabaseBrowserClient();
+    const { error } = await supabase.auth.signOut();
 
     if (error) {
-      return {
-        success: false,
-        error,
-      };
+      return { success: false, error };
     }
 
-    return {
-      success: true,
-      redirectTo: "/login",
-    };
+    return { success: true, redirectTo: "/login" };
   },
-  register: async ({ email, password }) => {
+
+  register: async ({ email, password, user_metadata = {} }) => {
+    const supabase = await supabaseBrowserClient();
+    const defaultMetadata = {
+      fullname: "",
+      license: "",
+      role: "pilot",
+      status: "active",
+    };
+
     try {
-      const { data, error } = await supabaseBrowserClient().auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: { ...defaultMetadata, ...user_metadata },
+        },
       });
 
-      if (error) {
-        return {
-          success: false,
-          error,
-        };
-      }
-
-      if (data) {
-        return {
-          success: true,
-          redirectTo: "/",
-        };
-      }
+      if (error) return { success: false, error };
+      return { success: true, redirectTo: "/" };
     } catch (error: any) {
-      return {
-        success: false,
-        error,
-      };
+      return { success: false, error };
     }
-
-    return {
-      success: false,
-      error: {
-        message: "Register failed",
-        name: "Invalid email or password",
-      },
-    };
   },
+
   check: async () => {
-    const { data, error } = await supabaseBrowserClient().auth.getUser();
+    const supabase = await supabaseBrowserClient();
+    const { data, error } = await supabase.auth.getUser();
     const { user } = data;
 
-    if (error) {
+    if (error || !user) {
       return {
         authenticated: false,
         redirectTo: "/login",
@@ -99,28 +75,25 @@ export const authProviderClient: AuthProvider = {
       };
     }
 
-    if (user) {
-      return {
-        authenticated: true,
-      };
-    }
-
-    return {
-      authenticated: false,
-      redirectTo: "/login",
-    };
+    return { authenticated: true };
   },
+
   getPermissions: async () => {
-    const user = await supabaseBrowserClient().auth.getUser();
-
-    if (user) {
-      return user.data.user?.role;
+    const supabase = await supabaseBrowserClient();
+    try {
+      const { error } = await supabase.auth.getUser();
+      if (error) return;
+      const { data } = await supabase.rpc("get_my_claim", { claim: "role" });
+      return data;
+    } catch (error: any) {
+      console.error(error);
+      return;
     }
-
-    return null;
   },
+
   getIdentity: async () => {
-    const { data } = await supabaseBrowserClient().auth.getUser();
+    const supabase = await supabaseBrowserClient();
+    const { data } = await supabase.auth.getUser();
 
     if (data?.user) {
       return {
@@ -131,13 +104,28 @@ export const authProviderClient: AuthProvider = {
 
     return null;
   },
+
   onError: async (error) => {
     if (error?.code === "PGRST301" || error?.code === 401) {
-      return {
-        logout: true,
-      };
+      return { logout: true };
     }
 
     return { error };
+  },
+
+  // ✅ Google ID Token Sign-in method
+  signInWithGoogle: async ({ credential }) => {
+    const supabase = await supabaseBrowserClient();
+    const { data, error } = await supabase.auth.signInWithIdToken({
+      provider: "google",
+      token: credential,
+      nonce: "<NONCE>", // Replace this with your nonce if verifying
+    });
+
+    if (error) {
+      console.error("Google sign-in failed:", error);
+    }
+
+    return { data, error };
   },
 };

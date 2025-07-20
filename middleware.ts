@@ -1,6 +1,6 @@
 // middleware.ts
 import NextIntlMiddleware from 'next-intl/middleware';
-import { updateSession } from './utils/supabase/middleware';
+import { updateSession } from "@/utils/supabase/middleware";
 import { createClient } from '@supabase/supabase-js';
 import type { NextRequest } from "next/server";
 

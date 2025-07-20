@@ -1,16 +1,14 @@
-
-
 // next.config.mjs
 import createNextIntlPlugin from 'next-intl/plugin';
-
 
 const nextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const baseConfig = {
-  experimental: {
-    useCache: true,
-  },
+  output: 'standalone',
+  reactStrictMode: true,
+  productionBrowserSourceMaps: false,
+  compress: true,
   images: {
     remotePatterns: [
       {

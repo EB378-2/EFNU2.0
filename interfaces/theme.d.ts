@@ -2,7 +2,7 @@ import "@refinedev/mui";
 
 export interface CustomTheme {
   // Add custom variables here like below:
-  // status: {
+  // pallet: {
   //   danger: string;
   // };
 }
@@ -13,3 +13,4 @@ declare module "@refinedev/mui" {
     extends import("@refinedev/mui").ThemeOptions,
       CustomTheme {}
 }
+ 

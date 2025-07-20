@@ -437,8 +437,5 @@
     "downloadButton": "Download PDF",
     "pdfTitle": "EFNU Operations Handbook",
     "mobileWarning": "For best experience, access on Laptop"
-  },
-  "PushNotifications": {
-    "SendTest": "Send Test"
   }
 }
