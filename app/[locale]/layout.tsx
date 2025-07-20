@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Providers } from "@/components/Layout/providers";
+import { Providers } from "../../components/Layout/providers";
 
 type Params = { locale: string };
 

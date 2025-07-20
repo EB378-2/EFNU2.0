@@ -11,6 +11,14 @@ const baseConfig = {
   experimental: {
     useCache: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'atis.efnu.fi',
+      },
+    ],
+  },
   headers: async () => [
     {
       source: '/(.*)',
