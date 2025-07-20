@@ -21,7 +21,7 @@ const baseConfig = {
       ],
     },
     {
-      source: '/sw.js',
+      source: '/OneSignalSDKWorker.js',
       headers: [
         { key: 'Content-Type', value: 'application/javascript; charset=utf-8' },
         { key: 'Cache-Control', value: 'public, max-age=86400, immutable' },
