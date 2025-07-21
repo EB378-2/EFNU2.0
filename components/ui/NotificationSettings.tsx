@@ -9,7 +9,6 @@ import OneSignal from 'react-onesignal';
 
 
 export function NotificationSettings() {
-  const [permission, setPermission] = useState<'default' | 'granted' | 'denied'>('default');
   const [enabled, setEnabled] = useState<boolean | null>(null);
 
     window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -22,6 +21,7 @@ export function NotificationSettings() {
  
   const onHandleTag = (tag: string) => {
     OneSignal.User.addTag("user_role", tag)
+    setEnabled(true);
     console.log('Tagging');
     
   }
