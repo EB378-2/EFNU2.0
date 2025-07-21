@@ -35,11 +35,11 @@ import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
 import { ProfileAvatar, ProfileLicense, ProfileName, ProfileEmail, ProfilePhone, ProfileRatings} from "@components/functions/FetchFunctions"
 import { EditButton } from "@refinedev/mui";
 import { ColorModeContext } from "@contexts/color-mode";
-import { FuelData } from "@components/profile/FuelData";
-import { PasswordChangeBlock } from "@components/profile/PasswordChange";
+import { FuelData } from "@components/Profile/FuelData";
+import { PasswordChangeBlock } from "@components/Profile/PasswordChange";
 import LanguageSwitcher from "@components/ui/LanguageSwitcher";
 import { useTranslations } from "next-intl";
-import QuickAccessSettings from "@components/profile/QuickAccessSettings";
+import QuickAccessSettings from "@components/Profile/QuickAccessSettings";
 import { Spinner } from "@components/ui/Spinner";
 
 

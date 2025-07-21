@@ -1,7 +1,5 @@
-// /providers/auth-provider/auth-provider.server.ts
 import type { AuthProvider } from "@refinedev/core";
 import { createSupabaseServerClient } from "@utils/supabase/server";
-import { cookies } from "next/headers";
 
 export const authProviderServer: Pick<AuthProvider, "check" | "getPermissions"> = {
   check: async () => {
@@ -9,7 +7,7 @@ export const authProviderServer: Pick<AuthProvider, "check" | "getPermissions"> 
     const { data, error } = await supabase.auth.getUser();
     const { user } = data;
 
-    if (error || !user) {
+    if (error) {
       return {
         authenticated: false,
         logout: true,
@@ -17,13 +15,39 @@ export const authProviderServer: Pick<AuthProvider, "check" | "getPermissions"> 
       };
     }
 
+    if (user) {
+      return {
+        authenticated: true,
+      };
+    }
+
     return {
-      authenticated: true,
+      authenticated: false,
+      logout: true,
+      redirectTo: "/login",
     };
   },
 
   getPermissions: async () => {
-    const role = cookies().get("user-role")?.value || "anonymous";
-    return role;
+    const supabase = await createSupabaseServerClient();
+    try {
+        const { error } = await supabase.auth.getUser();
+
+        if (error) {
+            console.error(error);
+            return;
+        }
+
+        const role = localStorage.getItem("user-role");
+          if (role) return role;
+
+        // fallback in case localStorage is empty
+        const { data } = await supabase.rpc("get_my_claim", { claim: "role" });
+          if (data) localStorage.setItem("user-role", data);
+        return data;
+    } catch (error: any) {
+        console.error(error);
+        return;
+    }
   },
 };

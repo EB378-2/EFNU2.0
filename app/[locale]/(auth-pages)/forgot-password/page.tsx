@@ -1,4 +1,4 @@
-import { AuthPage } from "@/components/auth-page2";
+import { AuthPage } from "@/components/AuthComponents/auth-page2";
 import { getData } from "@hooks/getData";
 import { redirect } from "next/navigation";
 

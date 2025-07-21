@@ -22,10 +22,10 @@ import {
   getlocalDate,
   getlocalTime,
   getutcTime
-} from "@components/home/time";
-import SunriseSunsetCard from "@components/home/SunriseSunsetCard"
-import QuickAccessButtons from "@components/home/QuickAccessButtons";
-import AlertCreateModal from "@components/home/CreateAlertPublicModal";
+} from "@components/Home/time";
+import SunriseSunsetCard from "@components/Home/SunriseSunsetCard"
+import QuickAccessButtons from "@components/Home/QuickAccessButtons";
+import AlertCreateModal from "@components/Home/CreateAlertPublicModal";
 import { Suspense } from 'react';
 import { Spinner } from "@/components/ui/Spinner";
 

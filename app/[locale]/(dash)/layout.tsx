@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import React, { Suspense } from "react";
 import { Spinner } from "@components/ui/Spinner";
 import { SessionSync } from "@components/Layout/SessionSync";
-import Nav from "@components/navbar";
+import Nav from "@components/Layout/navbar";
 import { Box } from "@mui/material";
 import RightTabModal from "@components/Layout/AlertTabComponent";
 
