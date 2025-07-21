@@ -12,34 +12,6 @@ export function NotificationSettings() {
   const [permission, setPermission] = useState<'default' | 'granted' | 'denied'>('default');
   const [enabled, setEnabled] = useState<boolean | null>(null);
 
-  useEffect(() => {
-    // Check permission directly from the browser
-    if (typeof window !== 'undefined' && 'Notification' in window) {
-      setPermission(Notification.permission);
-    }
-
-    // Check if push is enabled
-    if (typeof window !== 'undefined' && (window as any).OneSignal) {
-      (window as any).OneSignal.isPushNotificationsEnabled().then((res: boolean) => {
-        setEnabled(res);
-      });
-    }
-  }, []);
-
-  const toggleSubscription = async () => {
-    const OS = (window as any).OneSignal;
-    if (!OS) return;
-
-    const isEnabled = await OS.isPushNotificationsEnabled();
-    if (isEnabled) {
-      await OS.setSubscription(false);
-      setEnabled(false);
-    } else {
-      await OS.setSubscription(true);
-      setEnabled(true);
-    }
-  };
-
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     useEffect(() => {
     OneSignal.init({
