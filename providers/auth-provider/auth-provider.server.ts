@@ -37,8 +37,11 @@ export const authProviderServer: Pick<AuthProvider, "check" | "getPermissions"> 
             console.error(error);
             return;
         }
-        const { data } = await supabase.rpc("get_my_claim", { claim: "role" });
-          if (data) localStorage.setItem("user-role", data);
+
+        const { data } = await supabase.rpc("get_my_claim", {
+            claim: "role",
+        });
+
         return data;
     } catch (error: any) {
         console.error(error);

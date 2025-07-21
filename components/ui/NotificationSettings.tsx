@@ -1,51 +1,52 @@
-"use client";
+// components/ui/NotificationSettings.tsx
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { Box, Typography } from "@mui/material";
-import { Notifications, NotificationsOff } from "@mui/icons-material";
-import { useTranslations } from "next-intl";
-import { useGetIdentity } from "@refinedev/core";
-import { useTheme } from "@hooks/useTheme";
+import React, { useEffect, useState } from 'react';
+import { Notifications, NotificationsOff } from '@mui/icons-material';
+import { Box, IconButton } from '@mui/material';
 
-export const NotificationSettings = () => {
-    const t = useTranslations("NotificationSettings");
-    const { data: identityData } = useGetIdentity<{ id: string }>();
-    const UserID = identityData?.id as string;
-    const theme = useTheme();
 
-    const [permission, setPermission] = useState<NotificationPermission>(Notification.permission);
+export function NotificationSettings() {
+  const [permission, setPermission] = useState<'default' | 'granted' | 'denied'>('default');
+  const [enabled, setEnabled] = useState<boolean | null>(null);
 
-    // Ask permission if not already granted
-    useEffect(() => {
-        if (permission === "default") {
-            Notification.requestPermission().then(setPermission);
-        }
-    }, [permission]);
+  useEffect(() => {
+    // Check permission directly from the browser
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      setPermission(Notification.permission);
+    }
 
-    const togglePermission = async () => {
-        if (permission === "granted") {
-            alert("You have already allowed notifications. To disable, go to browser settings.");
-        } else {
-            const result = await Notification.requestPermission();
-            setPermission(result);
-        }
-    };
+    // Check if push is enabled
+    if (typeof window !== 'undefined' && (window as any).OneSignal) {
+      (window as any).OneSignal.isPushNotificationsEnabled().then((res: boolean) => {
+        setEnabled(res);
+      });
+    }
+  }, []);
+
+  const toggleSubscription = async () => {
+    const OS = (window as any).OneSignal;
+    if (!OS) return;
+
+    const isEnabled = await OS.isPushNotificationsEnabled();
+    if (isEnabled) {
+      await OS.setSubscription(false);
+      setEnabled(false);
+    } else {
+      await OS.setSubscription(true);
+      setEnabled(true);
+    }
+  };
 
     return (
-        <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
-            {permission === "granted" ? (
-                <Notifications
-                    color="primary"
-                    onClick={togglePermission}
-                    style={{ cursor: "pointer" }}
-                />
-            ) : (
-                <NotificationsOff
-                    color="disabled"
-                    onClick={togglePermission}
-                    style={{ cursor: "pointer" }}
-                />
-            )}
-        </Box>
-    );
-};
+    <Box display="flex" alignItems="center" gap={2}>
+          <IconButton
+            onClick={toggleSubscription}
+            disabled={permission === 'denied' || enabled === null}
+            color={enabled ? 'primary' : 'default'}
+          >
+            {enabled ? <Notifications /> : <NotificationsOff />}
+          </IconButton>
+    </Box>
+  );
+}
