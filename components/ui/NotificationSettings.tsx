@@ -32,7 +32,6 @@ export function NotificationSettings() {
     <Box display="flex" alignItems="center" gap={2}>
           <IconButton
             onClick={() => onHandleTag('admin')}
-            disabled={permission === 'denied' || enabled === null}
             color={enabled ? 'primary' : 'default'}
           >
             {enabled ? <Notifications /> : <NotificationsOff />}
