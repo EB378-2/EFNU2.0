@@ -28,7 +28,7 @@ import {
   Person as UserIcon, 
   LocalGasStation as FuelIcon, 
   AttachMoney as DollarIcon, 
-  Description as FileTextIcon 
+  Description as FileTextIcon,
 } from "@mui/icons-material";
 import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
 import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
@@ -41,6 +41,7 @@ import LanguageSwitcher from "@components/ui/LanguageSwitcher";
 import { useTranslations } from "next-intl";
 import QuickAccessSettings from "@components/Profile/QuickAccessSettings";
 import { Spinner } from "@components/ui/Spinner";
+import { NotificationSettings } from "@components/ui/NotificationSettings";
 
 
 const Profile = () => {
@@ -151,6 +152,7 @@ const Profile = () => {
                     {mode === "dark" ? <LightModeOutlined /> : <DarkModeOutlined />}
                   </IconButton>
                   <LanguageSwitcher/>
+                  <NotificationSettings />
                 </CardActions>
               </Card>
             </Grid>

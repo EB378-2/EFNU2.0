@@ -37,11 +37,6 @@ export const authProviderServer: Pick<AuthProvider, "check" | "getPermissions"> 
             console.error(error);
             return;
         }
-
-        const role = localStorage.getItem("user-role");
-          if (role) return role;
-
-        // fallback in case localStorage is empty
         const { data } = await supabase.rpc("get_my_claim", { claim: "role" });
           if (data) localStorage.setItem("user-role", data);
         return data;
