@@ -55,6 +55,7 @@ export function NotificationSettings() {
     OneSignal.User.PushSubscription.optIn();
     OneSignal.User.addTag("user_role", tag)
     OneSignal.login(UserID);
+    OneSignal.Slidedown.promptPush();
     setEnabled(true);
     console.log('Tagging');
     
@@ -65,7 +66,7 @@ export function NotificationSettings() {
     return (
     <Box display="flex" alignItems="center" gap={2}>
           <IconButton
-            onClick={() => onHandleTag('admin')}
+            onClick={() => onHandleTag('admin2test')}
             color={enabled ? 'primary' : 'default'}
           >
             {enabled ? <Notifications /> : <NotificationsOff />}
