@@ -17,6 +17,7 @@ import { Suspense } from 'react';
 import { Spinner } from "@/components/ui/Spinner";
 
 export default function LatestPosts() {
+  const handlePostClick = useHandlePostClick();
   const t = useTranslations("Home");
   const theme = useTheme();
 
@@ -38,7 +39,7 @@ export default function LatestPosts() {
                 <Card key={post.id} sx={{ p: 2, borderLeft: `4px solid ${post.categoryColor || theme.palette.primary.main}` }}>
                 <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>{post.title}</Typography>
                 <Typography variant="body2" sx={{ mt: 1, color: theme.palette.text.secondary }}>{post.content.substring(0, 80)}...</Typography>
-                <Button size="small" sx={{ mt: 1 }} onClick={() => useHandlePostClick(post.id)}>{t("readMore")}</Button>
+                <Button size="small" sx={{ mt: 1 }} onClick={() => handlePostClick(post.id)}>{t("readMore")}</Button>
                 </Card>
             ))}
             </Stack>

@@ -18,6 +18,7 @@ import { Suspense } from 'react';
 import { Spinner } from "@/components/ui/Spinner";
 
 export default function UpcomingEvents() {
+  const handleEventClick = useHandleEventClick();
   const t = useTranslations("Home");
   const theme = useTheme();
 
@@ -41,7 +42,7 @@ export default function UpcomingEvents() {
                     <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
                         {format(event.start_time, "dd/MM/yyyy, HH:mm")} – {format(event.end_time, "HH:mm")}
                     </Typography>
-                    <Button size="small" sx={{ mt: 1 }} onClick={() => useHandleEventClick(event.id)}>{t("Details")}</Button>
+                    <Button size="small" sx={{ mt: 1 }} onClick={() => handleEventClick(event.id)}>{t("Details")}</Button>
                 </Card>
                 ))}
             </Stack>
