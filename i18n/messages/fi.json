@@ -139,7 +139,10 @@
   "PICNameRequired": "Lentokapteenin (Koko nimi) tiedot ovat pakollisia.",
   "InvalidMTOW": "Virheellinen MTOW",
   "MTOWRequired": "MTOW (kg) on pakollinen.",
-  "MTOWTooHigh": "MTOW (kg) ei saa ylittää 10 000 kg."
+  "MTOWTooHigh": "MTOW (kg) ei saa ylittää 10 000 kg.",
+  "BillToSoemeoneElse": "Laskuta jollekin muulle",
+  "BillableProfile": "Laskutettava profiili",
+  "BillableRequired": "Laskutettava profiili on pakollinen."
   },
   "WebCam": {
     "EFNUWebcams": "EFNU Webcams",

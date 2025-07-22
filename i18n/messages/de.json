@@ -128,15 +128,17 @@
     "Aircraft registration": "Flugzeugkennzeichen",
     "MTOW (Kg)": "MTOW (kg)",
     "PIC (Full name)": "PIC (vollständiger Name)",
-    "IFR Arrival": "IFR‑Ankunft",
+    "IFR Arrival": "IFR-Ankunft",
     "Edittitle": "Vorankündigung ändern (PN)",
-    "InvalidTimeFormat": "Ungültiges Zeitformat. Bitte HHMM (24 h) verwenden.",
-    "InvalidDateFormat": "Ungültiges Datumsformat. Bitte YYYY‑MM‑TT verwenden.",
+    "InvalidTimeFormat": "Ungültiges Zeitformat. Bitte HHMM (24 h) verwenden.",
+    "InvalidDateFormat": "Ungültiges Datumsformat. Bitte YYYY-MM-TT verwenden.",
     "AircraftRequired": "Flugzeugkennzeichen erforderlich.",
     "PICNameRequired": "PIC (vollständiger Name) erforderlich.",
     "InvalidMTOW": "Ungültiges MTOW",
     "MTOWRequired": "MTOW (kg) erforderlich.",
-    "MTOWTooHigh": "MTOW (kg) darf 10000 kg nicht überschreiten."
+    "MTOWTooHigh": "MTOW (kg) darf 10000 kg nicht überschreiten.",
+    "Billable": "Rechnungsfähig"
+
   },
   "WebCam": {
     "EFNUWebcams": "EFNU Webcams",

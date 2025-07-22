@@ -11,7 +11,7 @@ import {
 import { useTheme } from "@hooks/useTheme";
 import { useTranslations } from "next-intl";
 import { useList } from "@refinedev/core";
-import { handleEventClick } from "@components/Home/client";
+import { useHandleEventClick } from "@components/Home/client";
 import { format } from "date-fns";
 import { CalendarEvent } from "@/types/Calendar";
 import { Suspense } from 'react';
@@ -41,7 +41,7 @@ export default function UpcomingEvents() {
                     <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
                         {format(event.start_time, "dd/MM/yyyy, HH:mm")} – {format(event.end_time, "HH:mm")}
                     </Typography>
-                    <Button size="small" sx={{ mt: 1 }} onClick={() => handleEventClick(event.id)}>{t("Details")}</Button>
+                    <Button size="small" sx={{ mt: 1 }} onClick={() => useHandleEventClick(event.id)}>{t("Details")}</Button>
                 </Card>
                 ))}
             </Stack>

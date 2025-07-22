@@ -568,12 +568,13 @@ const PNEdit = () => {
                     onChange={(e) => setBillableExternal(e.target.checked)}
                   />
                 }
-                label="billable"
+                label={t("BillToSoemeoneElse")}
               />
               {billableExternal === true && (
                 <Controller
                   name="billable"
                   control={control}
+                  rules={{ required: t("BillableRequired") }}
                   render={({ field: { onChange, value, ref }, fieldState: { error } }) => (
                     <Autocomplete
                       freeSolo
@@ -603,7 +604,7 @@ const PNEdit = () => {
                       renderInput={(params) => (
                         <TextField
                           {...params}
-                          label={t("Billable Profile")}
+                          label={t("BillableProfile")}
                           inputRef={ref}
                           error={!!error}
                           helperText={error?.message}

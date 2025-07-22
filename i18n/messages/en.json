@@ -141,7 +141,10 @@
     "MTOWRequired": "MTOW (Kg) is required.",
     "MTOWTooHigh": "MTOW (Kg) cannot exceed 10000 Kg.",
     "EitherDepartureOrArrivalRequired": "Either Departure Or Arrival Required",
-    "Loading": "Loading..."
+    "Loading": "Loading...",
+    "BillToSoemeoneElse": "BillToSoemeoneElse",
+    "BillableProfile": "Billable Profile",
+    "BillableRequired": "Billable Profile is required."
   },
   "WebCam": {
     "EFNUWebcams": "EFNU Webcams",
