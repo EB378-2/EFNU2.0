@@ -1,7 +1,4 @@
-"use client";
-
 import { Typography, Box, List, ListItem, ListItemText } from "@mui/material";
-import { motion } from "framer-motion";
 import React from "react";
 import { useTranslations } from "next-intl";
 
@@ -14,16 +11,17 @@ const RWYLightsPage: React.FC = () => {
   };
 
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-      className="h-screen w-full flex flex-col bg-gray-900 relative overflow-y-auto"
+    <Box
+      sx={{ 
+        p: { xs: 2, md: 4 }, 
+        minHeight: "100vh", 
+        backgroundColor: 'background.default', 
+        color: 'text.primary' 
+      }}
     >
       {/* Header */}
       <Typography 
         variant="h4"
-        component={motion.h1}
         sx={{
           p: 4,
           position: 'relative',
@@ -51,14 +49,16 @@ const RWYLightsPage: React.FC = () => {
         }}
       >
         {/* Video Container */}
-        <motion.div
-          className="relative"
-          style={{
-            maxWidth: '90vw',
+        <Box
+          sx={{
             width: '100%',
-            aspectRatio: '16/9',
+            maxWidth: '800px',
+            height: '450px',
+            position: 'relative',
+            overflow: 'hidden',
+            borderRadius: '12px',
+            boxShadow: '0 0 20px rgba(0, 0, 0, 0.3)',
           }}
-          whileHover={{ scale: 1.02 }}
         >
           <video
             controls
@@ -81,7 +81,7 @@ const RWYLightsPage: React.FC = () => {
             />
             {t("videoNotSupported")}
           </video>
-        </motion.div>
+        </Box>
 
         {/* Night Operations Information */}
         <Box
@@ -188,7 +188,7 @@ const RWYLightsPage: React.FC = () => {
           </List>
         </Box>
       </Box>
-    </motion.div>
+    </Box>
   );
 };
 

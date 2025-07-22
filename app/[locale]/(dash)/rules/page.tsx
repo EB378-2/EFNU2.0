@@ -1,20 +1,10 @@
-"use client";
-
 import React from "react";
 import { useTranslations } from "next-intl";
-import { motion } from "framer-motion";
-import { Box, Container, Typography, Button, List, ListItem } from "@mui/material";
-import { useTheme } from "@hooks/useTheme";
+import { Box, Container, Typography, List, ListItem } from "@mui/material";
+
 
 const AssociationRulesPage: React.FC = () => {
   const t = useTranslations("AssociationRules");
-  const theme = useTheme();
-
-  // Animation variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
-  };
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
@@ -25,7 +15,7 @@ const AssociationRulesPage: React.FC = () => {
         {t("effectiveDate")}
       </Typography>
 
-      <Box component={motion.div} initial="hidden" whileInView="visible" variants={fadeInUp}>
+      <Box >
         {/* Section 1: Name and Domicile */}
         <Typography variant="h5" sx={{ fontWeight: "bold", mt: 4, mb: 2 }}>
           {t("section1.title")}

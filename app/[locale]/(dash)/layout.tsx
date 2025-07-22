@@ -21,7 +21,7 @@ export default async function Layout({ children }: React.PropsWithChildren) {
   return (
       <>
         <SessionSync />
-        <Box sx={{ mb: 10 }}>
+        <Box sx={{ mb: 10, background: "radial-gradient(circle at top left, #111 0%, #391e02ff 110%)", minHeight: "100vh" }}>
           <Suspense>
             <RightTabModal />
           </Suspense>

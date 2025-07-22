@@ -6,16 +6,8 @@ import { NavigateToResource } from "@refinedev/nextjs-router";
 import { Authenticated } from "@refinedev/core";
 import React, { useEffect } from "react";
 import OneSignal from 'react-onesignal';
-import { useGetIdentity } from "@refinedev/core";
-
-type User = {
-  id: string;
-  // add other user properties if needed
-};
 
 export default function IndexPage() {
-  const { data: user } = useGetIdentity<User>();
-  const UserID = user?.id || 'defaultUserId';
 
   useEffect(() => {
     // Ensure this code runs only on the client side
@@ -46,10 +38,6 @@ export default function IndexPage() {
       });
     }
   }, []);
-  OneSignal.User.addTag("user_role", 'admin');
-  OneSignal.login(UserID);
-
-
   return (
     <Authenticated key="home">
         <NavigateToResource />

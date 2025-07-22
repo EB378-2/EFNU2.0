@@ -1,14 +1,24 @@
 "use client";
 
-
-import React from "react";
+import React, { Suspense, useState } from "react";
 import { useGetIdentity, useOne } from "@refinedev/core";
 import resources from '@/resources';
 import { QuickButton } from "@/types/QuickButton";
+import { Spinner } from "@components/ui/Spinner";
+import { Box, Grid, Button } from "@node_modules/@mui/material";
+import { useTranslations } from "next-intl";
+import { useTheme } from "@hooks/useTheme";
+import { useRouter } from "next/navigation";
+import AlertCreateModal from "./CreateAlertPublicModal";
 
 const DEFAULT_BUTTON_KEYS = ["notams", "priornotice", "webcam", "lights", "flyk", "weather"];
 
 export default function QuickAccessButtons() {
+  const t = useTranslations("Home");
+  const t2 = useTranslations("NavBar");
+  const theme = useTheme();
+  const router = useRouter();
+  const [createModalOpen, setCreateModalOpen] = useState(false);
   type UserIdentity = { id: string };
   const { data: userIdentity } = useGetIdentity<UserIdentity>();
   const menuResources = resources;
@@ -42,6 +52,56 @@ export default function QuickAccessButtons() {
     .filter(Boolean) as QuickButton[];
 
   return (
-    quickNavButtons
+    <Suspense fallback={<Spinner/>}>
+      <Box sx={{ mb: 5 }}>
+        <Grid container spacing={2}>
+          {quickNavButtons.map(({ icon, label, path }: QuickButton) => (
+            <Grid item xs={6} sm={4} key={label}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                sx={{
+                  py: 4,
+                  fontSize: "1.1rem",
+                  borderRadius: "14px",
+                  background: theme.palette.mode === "dark" ? "#263238" : "#1976d2",
+                  boxShadow: "0 6px 18px rgba(0,0,0,0.15)",
+                  textTransform: "none",
+                  '&:hover': {
+                    background: theme.palette.mode === "dark" ? "#37474f" : "#1565c0"
+                  }
+                }}
+                onClick={() => router.push(path)}
+              >
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 1.2
+                  }}
+                >
+                  {icon}
+                  {t2(`${label}`)}
+                </Box>
+              </Button>
+            </Grid>
+          ))}
+        
+          <Grid item xs={12}>
+            <Button variant="outlined" color="secondary" sx={{ width: "100%" }} onClick={() => setCreateModalOpen(true)}>{t("ReportTroubleatEFNU")}</Button>
+          </Grid>
+        </Grid>
+        <AlertCreateModal 
+          open={createModalOpen}
+          onClose={() => setCreateModalOpen(false)}
+          onSuccess={() => {
+            setCreateModalOpen(false);
+          }}
+        />
+        
+      </Box>
+    </Suspense>
   );
 }
