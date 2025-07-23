@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { Error, Warning, Info, Schedule } from "@mui/icons-material";
 import { useList } from "@refinedev/core";
-import { useTheme } from "@mui/material/styles";
+import { useTheme } from "@/hooks/useTheme";
 import { formatDistanceToNow } from "date-fns";
 import { useTranslations } from "next-intl";
 

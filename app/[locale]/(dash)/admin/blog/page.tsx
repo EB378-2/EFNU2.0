@@ -41,7 +41,7 @@ import {
 import { useList, useDelete } from "@refinedev/core";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
-import { useTheme } from "@mui/material/styles";
+import { useTheme } from "@/hooks/useTheme";
 import BlogEditModal from "@components/AdminComponents/BlogEditModal";
 import BlogCreateModal from "@components/AdminComponents/BlogCreateModal";
 import { Blog } from "@/types/Blog";

@@ -64,16 +64,16 @@ declare module "@mui/material/styles" {
 export const lightTheme = createTheme(RefineThemes.Orange, {
   palette: {
     primary: {
-      main: "#133c83",
+      main: "#2676ff",
       light: "#2F3558",
-      dark: "#0F1228",
+      dark: "#1023b1",
       contrastText: "#000000",
     },
     secondary: {
       main: "#FF914D",
       light: "#FFB585",
       dark: "#D9743E",
-      contrastText: "#000000",
+      contrastText: "#ffffff",
     },
     third: {
       main: "#005F6B",

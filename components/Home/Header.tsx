@@ -7,6 +7,7 @@ import {
   Stack
 } from "@mui/material";
 import { useTranslations } from "next-intl";
+import { useTheme } from "@hooks/useTheme";
 import {
   getfinishTime,
   getlocalDate,
@@ -20,6 +21,7 @@ import { Spinner } from "@/components/ui/Spinner";
 
 export default function Header() {
   const t = useTranslations("Home");
+  const theme = useTheme();
 
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -35,7 +37,7 @@ export default function Header() {
   const todayDate = getlocalDate(currentTime);
 
   return (
-    <Box sx={{ mb: 4, textAlign: "center" }}>
+    <Box sx={{ mb: 4, textAlign: "center", color: theme.palette.primary.contrastText }}>
         <Typography variant="overline" sx={{ opacity: 0.7 }}>{todayDate}</Typography>
         <Typography variant="h3" sx={{ fontWeight: 800, mb: 1 }}>{t("title")}</Typography>
         <Suspense fallback={<Spinner />}>

@@ -16,7 +16,7 @@ import {
 import { Add as AddIcon, Flight } from "@mui/icons-material";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useTheme } from "@mui/material/styles";
+import { useTheme } from "@/hooks/useTheme";
 import { DeleteButton, EditButton } from "@refinedev/mui";
 import { PriorNotice } from "@/types/PriorNotice";
 import { useTranslations } from "next-intl";

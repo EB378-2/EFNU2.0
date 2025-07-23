@@ -6,8 +6,8 @@ import React, { Suspense } from "react";
 import { Spinner } from "@components/ui/Spinner";
 import { SessionSync } from "@components/Layout/SessionSync";
 import Nav from "@components/Layout/navbar";
-import { Box } from "@mui/material";
 import RightTabModal from "@components/Layout/AlertTabComponent";
+import { BackgroundProvider } from "@components/Layout/BackgroundProvider";
 
 export default async function Layout({ children }: React.PropsWithChildren) {
   const data = await getData();
@@ -21,14 +21,14 @@ export default async function Layout({ children }: React.PropsWithChildren) {
   return (
       <>
         <SessionSync />
-        <Box sx={{ mb: 10, background: "radial-gradient(circle at top left, #111 0%, #391e02ff 110%)", minHeight: "100vh" }}>
+        <BackgroundProvider>
           <Suspense>
             <RightTabModal />
           </Suspense>
           <Suspense fallback={<Spinner/>}>
             { children }
           </Suspense>
-        </Box>
+        </BackgroundProvider>
         <Nav/>
       </>
   );

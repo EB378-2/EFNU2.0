@@ -54,10 +54,10 @@ const SunriseSunsetCard = () => {
     ) : error ? (
         <Typography color="error">{error}</Typography>
     ) : (
-        <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 1 }}>
+        <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 1, color: theme.palette.primary.contrastText }}>
           <Typography variant="caption">SR: {formatTime(times?.sunrise)}</Typography>
           <Typography variant="caption">SS: {formatTime(times?.sunset)}</Typography>
-          <Typography variant="caption">Ops: 04:00–19:00 UTC</Typography>
+          <Typography variant="caption">Ops: 04:00-19:00 UTC</Typography>
       </Stack>
     )}
 </>

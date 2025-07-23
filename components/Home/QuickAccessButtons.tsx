@@ -60,16 +60,16 @@ export default function QuickAccessButtons() {
               <Button
                 fullWidth
                 variant="contained"
-                color="primary"
                 sx={{
                   py: 4,
                   fontSize: "1.1rem",
                   borderRadius: "14px",
-                  background: theme.palette.mode === "dark" ? "#263238" : "#1976d2",
+                  background: theme.palette.primary.main,
+                  color: theme.palette.secondary.contrastText,
                   boxShadow: "0 6px 18px rgba(0,0,0,0.15)",
                   textTransform: "none",
                   '&:hover': {
-                    background: theme.palette.mode === "dark" ? "#37474f" : "#1565c0"
+                    background: theme.palette.primary.dark,
                   }
                 }}
                 onClick={() => router.push(path)}
@@ -90,7 +90,7 @@ export default function QuickAccessButtons() {
           ))}
         
           <Grid item xs={12}>
-            <Button variant="outlined" color="secondary" sx={{ width: "100%" }} onClick={() => setCreateModalOpen(true)}>{t("ReportTroubleatEFNU")}</Button>
+            <Button variant="contained" sx={{ width: "100%", background: theme.palette.secondary.main, color: theme.palette.primary.contrastText }} onClick={() => setCreateModalOpen(true)}>{t("ReportTroubleatEFNU")}</Button>
           </Grid>
         </Grid>
         <AlertCreateModal 
