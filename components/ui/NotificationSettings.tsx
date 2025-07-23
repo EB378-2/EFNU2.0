@@ -66,7 +66,7 @@ export function NotificationSettings() {
     return (
     <Box display="flex" alignItems="center" gap={2}>
           <IconButton
-            onClick={() => onHandleTag('admin2test')}
+            onClick={() => onHandleTag('testPilot')}
             color={enabled ? 'primary' : 'default'}
           >
             {enabled ? <Notifications /> : <NotificationsOff />}
