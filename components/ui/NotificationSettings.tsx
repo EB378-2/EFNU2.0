@@ -6,6 +6,7 @@ import { Notifications, NotificationsOff } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
 import OneSignal from 'react-onesignal';
 import { useGetIdentity } from "@refinedev/core";
+import { ProfileRoleNotification } from '../functions/FetchFunctions'; // Adjust the import path as necessary
 
 type User = {
   id: string;
@@ -19,9 +20,10 @@ export function NotificationSettings() {
   const [enabled, setEnabled] = useState<boolean | null>(null);
   useEffect(() => {
     OneSignal.init({
-      appId: "68782627-f22d-45b7-b1eb-44b826777b50"
+      appId: "fbef6154-11e5-44d2-a47f-25dd7840cf20"
     });
   }, []);
+  const role = ProfileRoleNotification({profileId: UserID}) as string;
 
  
   const onHandleTag = (tag: string) => {
@@ -66,7 +68,7 @@ export function NotificationSettings() {
     return (
     <Box display="flex" alignItems="center" gap={2}>
           <IconButton
-            onClick={() => onHandleTag('testPilot')}
+            onClick={() => onHandleTag(role)}
             color={enabled ? 'primary' : 'default'}
           >
             {enabled ? <Notifications /> : <NotificationsOff />}
