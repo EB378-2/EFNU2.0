@@ -1,65 +1,63 @@
 "use client";
 
 import React from "react";
-import Cookies from "js-cookie";
 import { RefineThemedLayoutV2HeaderProps } from "@refinedev/mui";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter, usePathname, useParams } from "next/navigation";
 import { useTheme } from "@hooks/useTheme";
 import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 
 interface NavbarProps extends RefineThemedLayoutV2HeaderProps {
   children?: React.ReactNode;
-  locale?: string;
 }
 
 const locales = [
-  { code: "en", label: "EN", emoji: "🇬🇧" },
-  { code: "fi", label: "FI", emoji: "🇫🇮" },
-  { code: "se", label: "SE", emoji: "🇸🇪" },
-  { code: "de", label: "DE", emoji: "🇩🇪" },
+  { value: "en", label: "EN", flag: "🇬🇧" },
+  { value: "fi", label: "FI", flag: "🇫🇮" },
+  { value: "se", label: "SE", flag: "🇸🇪" },
+  { value: "de", label: "DE", flag: "🇩🇪" },
 ];
 
-const LanguageSwitcher: React.FC<NavbarProps> = ({ locale }) => {
+const LanguageSwitcher: React.FC<NavbarProps> = () => {
   const theme = useTheme();
-  const pathname = usePathname();
   const router = useRouter();
-  const currentLocale = pathname.split("/")[1] || locale || "en";
+  const pathname = usePathname();
+  const params = useParams();
+
+  const currentLocale = typeof params.locale === "string" ? params.locale : "en";
 
   const handleLanguageChange = (event: SelectChangeEvent<string>) => {
     const newLocale = event.target.value;
     if (newLocale === currentLocale) return;
 
-    // Persist new locale in cookie
-    Cookies.set("NEXT_LOCALE", newLocale, { path: "/" });
+    // Replace only the locale part in the pathname
+    const pathParts = pathname.split("/");
+    if (locales.some((l) => l.value === pathParts[1])) {
+      pathParts[1] = newLocale;
+    } else {
+      pathParts.splice(1, 0, newLocale); // prepend if no locale in path
+    }
 
-    // Build new path by replacing the locale segment
-    const pathSegments = pathname.split("/").slice(2); // Skip current locale
-    const newPath = "/" + [newLocale, ...pathSegments].join("/");
-
-    // Navigate to updated locale route
+    const newPath = pathParts.join("/") || "/";
     router.push(newPath);
-  };
-
-  const hoverAnimation = {
-    scale: 1.05,
-    boxShadow: `0 4px 12px ${theme.palette.primary.light}30`,
-    transition: { duration: 0.3 }
   };
 
   return (
     <Box
       component={motion.div}
-      whileHover={hoverAnimation}
+      whileHover={{
+        scale: 1.05,
+        boxShadow: `0 4px 12px ${theme.palette.primary.light}30`,
+        transition: { duration: 0.3 },
+      }}
       sx={{
-        position: "relative",
         display: "inline-flex",
         alignItems: "center",
         borderRadius: "50px",
-        bgcolor: theme.palette.mode === "dark" 
-          ? "rgba(255,255,255,0.1)" 
+        bgcolor: theme.palette.mode === "dark"
+          ? "rgba(255,255,255,0.08)"
           : "rgba(0,0,0,0.05)",
         p: 0.5,
         border: `1px solid ${theme.palette.divider}`,
@@ -91,9 +89,9 @@ const LanguageSwitcher: React.FC<NavbarProps> = ({ locale }) => {
             sx: {
               mt: 1,
               borderRadius: 2,
-              boxShadow: `0 8px 24px ${theme.palette.mode === "dark" 
-                ? "rgba(0,0,0,0.3)" 
-                : "rgba(0,0,0,0.1)"}`,
+              boxShadow: theme.palette.mode === "dark"
+                ? "0 8px 24px rgba(0,0,0,0.3)"
+                : "0 8px 24px rgba(0,0,0,0.1)",
               "& .MuiMenuItem-root": {
                 px: 2,
                 py: 1.5,
@@ -105,11 +103,11 @@ const LanguageSwitcher: React.FC<NavbarProps> = ({ locale }) => {
           },
         }}
       >
-        {locales.map((loc) => (
-          <MenuItem key={loc.code} value={loc.code}>
+        {locales.map(({ value, label, flag }) => (
+          <MenuItem key={value} value={value}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <Typography variant="body2">{loc.emoji}</Typography>
-              <Typography variant="body2">{loc.label}</Typography>
+              <Typography variant="body2">{flag}</Typography>
+              <Typography variant="body2">{label}</Typography>
             </Box>
           </MenuItem>
         ))}
