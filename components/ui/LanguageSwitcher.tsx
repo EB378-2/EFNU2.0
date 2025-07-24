@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Cookies from "js-cookie";
 import { RefineThemedLayoutV2HeaderProps } from "@refinedev/mui";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -14,6 +15,13 @@ interface NavbarProps extends RefineThemedLayoutV2HeaderProps {
   locale?: string;
 }
 
+const locales = [
+  { code: "en", label: "EN", emoji: "🇬🇧" },
+  { code: "fi", label: "FI", emoji: "🇫🇮" },
+  { code: "se", label: "SE", emoji: "🇸🇪" },
+  { code: "de", label: "DE", emoji: "🇩🇪" },
+];
+
 const LanguageSwitcher: React.FC<NavbarProps> = ({ locale }) => {
   const theme = useTheme();
   const pathname = usePathname();
@@ -24,13 +32,17 @@ const LanguageSwitcher: React.FC<NavbarProps> = ({ locale }) => {
     const newLocale = event.target.value;
     if (newLocale === currentLocale) return;
 
-    const pathSegments = pathname.split("/").slice(2); // remove locale
+    // Persist new locale in cookie
+    Cookies.set("NEXT_LOCALE", newLocale, { path: "/" });
+
+    // Build new path by replacing the locale segment
+    const pathSegments = pathname.split("/").slice(2); // Skip current locale
     const newPath = "/" + [newLocale, ...pathSegments].join("/");
 
+    // Navigate to updated locale route
     router.push(newPath);
   };
 
-  // Animation variants
   const hoverAnimation = {
     scale: 1.05,
     boxShadow: `0 4px 12px ${theme.palette.primary.light}30`,
@@ -93,34 +105,14 @@ const LanguageSwitcher: React.FC<NavbarProps> = ({ locale }) => {
           },
         }}
       >
-        <MenuItem value="en">
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Typography variant="body2">🇬🇧</Typography>
-            <Typography variant="body2">EN</Typography>
-            <Typography variant="body2"></Typography>
-          </Box>
-        </MenuItem>
-        <MenuItem value="fi">
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Typography variant="body2">🇫🇮</Typography>
-            <Typography variant="body2">FI</Typography>
-            <Typography variant="body2"></Typography>
-          </Box>
-        </MenuItem>
-        <MenuItem value="se">
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Typography variant="body2">🇸🇪</Typography>
-            <Typography variant="body2">SE</Typography>
-            <Typography variant="body2"></Typography>
-          </Box>
-        </MenuItem>
-        <MenuItem value="se">
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Typography variant="body2">🇩🇪</Typography>
-            <Typography variant="body2">DE</Typography>
-            <Typography variant="body2"></Typography>
-          </Box>
-        </MenuItem>
+        {locales.map((loc) => (
+          <MenuItem key={loc.code} value={loc.code}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Typography variant="body2">{loc.emoji}</Typography>
+              <Typography variant="body2">{loc.label}</Typography>
+            </Box>
+          </MenuItem>
+        ))}
       </Select>
     </Box>
   );
