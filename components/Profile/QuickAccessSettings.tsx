@@ -12,12 +12,14 @@ import {
 } from "@mui/material";
 import { useOne, useUpdate, useGetIdentity, CanAccess } from "@refinedev/core";
 import resources from "@/resources";
+import { useTranslations } from "next-intl";
 
 const MAX_SELECTION = 6;
 
 export default function QuickAccessSettings() {
   const { data: userIdentity } = useGetIdentity<{ id: string }>();
   const { mutate: updateProfile, isLoading: saving } = useUpdate();
+  const t = useTranslations("NavBar");
   
   const { data: userData, isLoading } = useOne({
     resource: "profiles",
@@ -85,7 +87,7 @@ export default function QuickAccessSettings() {
                         }
                         />
                     }
-                    label={res.meta.label}
+                    label={t(res.meta.label)}
                     />
                 </Grid>
           </CanAccess>
@@ -94,7 +96,7 @@ export default function QuickAccessSettings() {
 
       {selected.length > MAX_SELECTION && (
         <Alert severity="error" sx={{ mt: 2 }}>
-          You can only select up to {MAX_SELECTION} items.
+          {t("Youcanonlyselectupto")}{MAX_SELECTION} {t("items")}.
         </Alert>
       )}
 
@@ -104,11 +106,11 @@ export default function QuickAccessSettings() {
           onClick={handleSave}
           disabled={saving || selected.length === 0}
         >
-          Save
+          {t("Save")}
         </Button>
         {saved && (
           <Typography color="success.main" mt={1}>
-            Saved successfully!
+            {t("Saved successfully!")}
           </Typography>
         )}
       </Box>

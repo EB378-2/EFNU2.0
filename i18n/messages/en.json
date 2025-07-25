@@ -27,7 +27,11 @@
     "incidents": "Incidents",
     "fuel": "Fuel",
     "flights": "Flights",
-    "alerts": "Alerts"
+    "alerts": "Alerts",
+    "Youcanonlyselectupto": "You can only select up to",
+    "items": "items",
+    "Save": "Save",
+    "Saved successfully!": "Saved successfully!"
   },
 
 

@@ -85,7 +85,7 @@ const resources = [
       name: "information",                          
       list: "/information",
       meta: {
-        label: "INFO",
+        label: "information",
         icon: <Info />
       }
   },

@@ -18,7 +18,7 @@ export function BackgroundProvider({
     : theme.palette.grey[800];
 
   return (
-    <Box sx={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
+    <Box sx={{ position: 'relative', maxHeight: '90vh', overflow: 'auto' }}>
       
       {/* Background layers in separate Box with negative zIndex */}
       <Box
@@ -27,7 +27,7 @@ export function BackgroundProvider({
           top: 0,
           left: 0,
           right: 0,
-          bottom: 0,
+          bottom: "10vh",
           backgroundColor: backgroundColor,
           pointerEvents: 'none',
           zIndex: -1,

@@ -27,7 +27,11 @@
     "incidents": "Tapahtumat",
     "fuel": "Polttoaine",
     "flights": "Lennot",
-    "alerts": "Hälytykset"
+    "alerts": "Hälytykset",
+    "Youcanonlyselectupto": "Saat valita enintään",
+    "items": "kohdetta",
+    "Save": "Tallenna",
+    "Saved successfully!": "Tallennettu onnistuneesti!"
   },
   
 
@@ -59,7 +63,7 @@
     "ViewPastTransactions": "Katso aiemmat tapahtumat",
     "FuelAvailability": "Polttoaineen saatavuus",
     "CurrentTankEstimates": "Nykyiset säiliöarviot",
-    "SupportCenter": "Tuetukeskus",
+    "SupportCenter": "Tuetus- ja asiakaspalvelukeskus",
     "assistance": "24/7 apua",
     "Create": {
       "RecordFuelAddition": "Ilmoita polttoaineen lisäys",

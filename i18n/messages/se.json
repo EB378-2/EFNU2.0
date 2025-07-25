@@ -26,7 +26,11 @@
     "incidents": "Incidenter",
     "fuel": "Bränsle",
     "flights": "Flyg",
-    "alerts": "Aviseringar"
+    "alerts": "Aviseringar",
+    "Youcanonlyselectupto": "Du kan endast välja upp till",
+    "items": "objekt.",
+    "Save": "Spara",
+    "Saved successfully!": "Ändringarna sparades!"
   },
   "Home": {
     "title": "Välkommen till EFNU",

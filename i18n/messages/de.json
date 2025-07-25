@@ -26,7 +26,11 @@
     "incidents": "Vorfälle",
     "fuel": "Treibstoff",
     "flights": "Flüge",
-    "alerts": "Warnungen"
+    "alerts": "Warnungen",
+    "Youcanonlyselectupto": "Sie können nur bis zu",
+    "items": "Elemente auswählen.",
+    "Save": "Speichern",
+    "Saved successfully!": "Erfolgreich gespeichert!"
   },
   "Home": {
     "title": "Willkommen am EFNU",
