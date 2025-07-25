@@ -46,12 +46,6 @@ const LanguageSwitcher: React.FC<NavbarProps> = () => {
 
   return (
     <Box
-      component={motion.div}
-      whileHover={{
-        scale: 1.05,
-        boxShadow: `0 4px 12px ${theme.palette.primary.light}30`,
-        transition: { duration: 0.3 },
-      }}
       sx={{
         display: "inline-flex",
         alignItems: "center",
@@ -64,54 +58,68 @@ const LanguageSwitcher: React.FC<NavbarProps> = () => {
         transition: "all 0.3s ease",
       }}
     >
-      <Select
-        value={currentLocale}
-        onChange={handleLanguageChange}
-        variant="standard"
-        disableUnderline
-        sx={{
-          minWidth: 80,
-          color: theme.palette.text.primary,
-          fontWeight: 500,
-          "& .MuiSelect-select": {
-            py: 1,
-            px: 2,
-            display: "flex",
-            alignItems: "center",
-          },
-          "& .MuiSelect-icon": {
-            color: theme.palette.text.secondary,
-            right: 8,
-          },
+      <motion.div
+        whileHover={{
+          scale: 1.05,
+          boxShadow: `0 4px 12px ${theme.palette.primary.light}30`,
+          transition: { duration: 0.3 },
         }}
-        MenuProps={{
-          PaperProps: {
-            sx: {
-              mt: 1,
-              borderRadius: 2,
-              boxShadow: theme.palette.mode === "dark"
-                ? "0 8px 24px rgba(0,0,0,0.3)"
-                : "0 8px 24px rgba(0,0,0,0.1)",
-              "& .MuiMenuItem-root": {
-                px: 2,
-                py: 1.5,
-                "&.Mui-selected": {
-                  bgcolor: theme.palette.primary.light + "20",
+        style={{
+          display: "flex",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <Select
+          value={currentLocale}
+          onChange={handleLanguageChange}
+          variant="standard"
+          disableUnderline
+          sx={{
+            minWidth: 80,
+            color: theme.palette.text.primary,
+            fontWeight: 500,
+            "& .MuiSelect-select": {
+              py: 1,
+              px: 2,
+              display: "flex",
+              alignItems: "center",
+            },
+            "& .MuiSelect-icon": {
+              color: theme.palette.text.secondary,
+              right: 8,
+            },
+          }}
+          MenuProps={{
+            disableScrollLock: true,
+            PaperProps: {
+              sx: {
+                mt: 1,
+                borderRadius: 2,
+                boxShadow: theme.palette.mode === "dark"
+                  ? "0 8px 24px rgba(0,0,0,0.3)"
+                  : "0 8px 24px rgba(0,0,0,0.1)",
+                "& .MuiMenuItem-root": {
+                  px: 2,
+                  py: 1.5,
+                  "&.Mui-selected": {
+                    bgcolor: theme.palette.primary.light + "20",
+                  },
                 },
               },
             },
-          },
-        }}
-      >
-        {locales.map(({ value, label, flag }) => (
-          <MenuItem key={value} value={value}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <Typography variant="body2">{flag}</Typography>
-              <Typography variant="body2">{label}</Typography>
-            </Box>
-          </MenuItem>
-        ))}
-      </Select>
+          }}
+        >
+          {locales.map(({ value, label, flag }) => (
+            <MenuItem key={value} value={value}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <Typography variant="body2">{flag}</Typography>
+                <Typography variant="body2">{label}</Typography>
+              </Box>
+            </MenuItem>
+          ))}
+        </Select>
+      </motion.div>
     </Box>
   );
 };
