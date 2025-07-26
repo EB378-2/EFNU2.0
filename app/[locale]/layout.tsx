@@ -1,61 +1,34 @@
-// app/[locale]/layout.tsx
-import { cookies } from "next/headers";
-import { Providers } from "@components/Layout/providers";
-import { Metadata, Viewport } from "next";
-import { APP_NAME, APP_DEFAULT_TITLE, APP_TITLE_TEMPLATE, APP_DESCRIPTION, defaultUrl } from "@/constants";
+"use client";
 
-export const metadata: Metadata = {
-  applicationName: APP_NAME,
-  metadataBase: new URL(defaultUrl),
-  title: {
-    default: APP_DEFAULT_TITLE,
-    template: APP_TITLE_TEMPLATE,
-  },
-  icons: { icon: "/favicon.ico" },
-  description: APP_DESCRIPTION,
-  manifest: "/manifest.json",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "default",
-    title: APP_DEFAULT_TITLE,
-  },
-  formatDetection: { telephone: false },
-  openGraph: {
-    type: "website",
-    siteName: APP_NAME,
-    title: { default: APP_DEFAULT_TITLE, template: APP_TITLE_TEMPLATE },
-    description: APP_DESCRIPTION,
-  },
-  twitter: {
-    card: "summary",
-    title: { default: APP_DEFAULT_TITLE, template: APP_TITLE_TEMPLATE },
-    description: APP_DESCRIPTION,
-  },
-};
+import React, { Suspense, useState, useEffect } from "react";
+import { Spinner } from "@components/ui/Spinner";
+import { NextIntlClientProvider } from "next-intl";
 
-export const viewport: Viewport = {
-  themeColor: "#000000",
-  minimumScale: 1,
-  userScalable: false,
-};
-
-export default function RootLayout({
-  children,
-  params: { locale },
-}: {
-  children: React.ReactNode;
-  params: { locale: string };
+export default function Layout({ 
+    children, 
+    params: { locale } 
+}: { 
+    children: React.ReactNode;
+    params: { locale: string };
 }) {
-  const theme = cookies().get("theme")?.value;
-  const defaultMode = theme === "dark" ? "dark" : "light";
+  
+    const [messages, setMessages] = useState<any | null>(null);
+  
+    useEffect(() => {
+      import(`@/i18n/messages/${locale}.json`)
+        .then((mod) => setMessages(mod.default || mod))
+        .catch(() => setMessages({}));
+    }, [locale]);
+  
+    if (!messages) return null; // or <LoadingScreen />
 
-  return (
-    <html lang={locale}>
-      <body>
-        <Providers defaultMode={defaultMode} locale={locale}>
-          {children}
-        </Providers>
-      </body>
-    </html>
-  );
+    return (
+        <>
+            <Suspense fallback={<Spinner/>}>
+                <NextIntlClientProvider messages={messages} locale={locale}>
+                    {children}
+                </NextIntlClientProvider>
+            </Suspense>
+        </>
+    );
 }

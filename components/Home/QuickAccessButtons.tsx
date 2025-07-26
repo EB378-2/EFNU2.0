@@ -22,7 +22,6 @@ export default function QuickAccessButtons() {
   type UserIdentity = { id: string };
   const { data: userIdentity } = useGetIdentity<UserIdentity>();
   const menuResources = resources;
-  console.log(menuResources)
   
   const { data: userData } = useOne({
     resource: "profiles",

@@ -3,36 +3,33 @@
 import { useEffect } from 'react';
 import { useGetIdentity } from "@refinedev/core";
 
-interface AuthIdentity {
-  id: string;
-  role?: string;
-}
+const ROLE_FETCH_INTERVAL = 60 * 60 * 1000; // 1 hour
 
 export function SessionSync() {
-  const { data: identity } = useGetIdentity<AuthIdentity>();
+  const { data: identity } = useGetIdentity<{ role?: string }>();
 
   useEffect(() => {
-    const syncRole = async () => {
+    const updateRole = async () => {
+      const lastFetch = Number(localStorage.getItem('role-last-fetch') || 0);
+      const now = Date.now();
+
+      // Skip if recently fetched or role exists in identity
+      if (now - lastFetch < ROLE_FETCH_INTERVAL || identity?.role) return;
+
       try {
-        // For client-side permission checks, use an API route instead
         const res = await fetch('/api/get-role');
         const { role } = await res.json();
-        
         const finalRole = role || 'anonymous';
-        
+
         localStorage.setItem('user-role', finalRole);
-        document.cookie = `user-role=${finalRole}; path=/; sameSite=lax; ${
-          process.env.NODE_ENV === 'production' ? 'secure;' : ''
-        } max-age=${60 * 30}`;
+        localStorage.setItem('role-last-fetch', now.toString());
       } catch (error) {
         console.error("Role sync failed:", error);
       }
     };
 
-    if (typeof window !== 'undefined') {
-      syncRole();
-    }
-  }, [identity]);
+    updateRole();
+  }, [identity?.role]); // Only rerun if identity.role changes
 
   return null;
 }
