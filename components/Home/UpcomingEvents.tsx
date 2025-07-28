@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Box,
   Typography,
@@ -14,25 +14,23 @@ import { useList } from "@refinedev/core";
 import { useHandleEventClick } from "@components/Home/client";
 import { format } from "date-fns";
 import { CalendarEvent } from "@/types/Calendar";
-import { Suspense } from 'react';
-import { Spinner } from "@/components/ui/Spinner";
 
 export default function UpcomingEvents() {
   const handleEventClick = useHandleEventClick();
   const t = useTranslations("Home");
   const theme = useTheme();
+  const now = useMemo(() => new Date().toISOString(), []);
 
   const { data: eventData } = useList<CalendarEvent>({
     resource: "events",
     meta: { select: "*" },
     pagination: { pageSize: 10 },
     sorters: [{ field: "end_time", order: "asc" }],
-    filters: [{ field: "end_time", operator: "gte", value: new Date().toISOString() }]
+    filters: [{ field: "end_time", operator: "gte", value: now }]
   });
   const events = eventData?.data || [];
 
   return (
-    <Suspense fallback={<Spinner/>}>
         <Box>
             <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>{t("UpcomingEvents")}</Typography>
             <Stack spacing={2}>
@@ -47,6 +45,5 @@ export default function UpcomingEvents() {
                 ))}
             </Stack>
         </Box>
-    </Suspense>
   );
 }
