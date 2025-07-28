@@ -141,6 +141,7 @@
     "InvalidDateFormat": "Invalid date format. Please use YYYY-MM-DD format.",
     "AircraftRequired": "Aircraft registration is required.",
     "PICNameRequired": "PIC (Full Name) is required.",
+    "MTOWRequiredForNewAircraft": "MTOW (Kg) is required for new aircraft registrations.",
     "InvalidMTOW": "Invalid MTOW",
     "MTOWRequired": "MTOW (Kg) is required.",
     "MTOWTooHigh": "MTOW (Kg) cannot exceed 10000 Kg.",

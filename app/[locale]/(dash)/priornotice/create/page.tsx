@@ -66,6 +66,8 @@ const PNCreate = () => {
     },
   });
 
+  const aircraftB = useProfilePNAircraft({ profileId: identityData?.id ?? "" })
+
 
 
   // Fetch PIC persons from profile
@@ -74,10 +76,10 @@ const PNCreate = () => {
 
   // Initialize aircraft options from all aircraft in database
   useEffect(() => {
-    if (aircraftData?.data) {
-      setAircraftOptions(aircraftData.data.map(ac => ac.id));
+    if (aircraftB) {
+      setAircraftOptions(aircraftB.map(ac => ac));
     }
-  }, [aircraftData]);
+  }, [aircraftB]);
 
   // Initialize profiles options from filtered profile in database
 
@@ -145,7 +147,7 @@ const PNCreate = () => {
 
   const [depArrSelected, setDepArrSelected] = useState<"DEP" | "ARR" | "LOCAL">('ARR');
 
-  const aircraftB = useProfilePNAircraft({ profileId: identityData?.id ?? "" })
+
 
   const handleSaveAircraftAndPIC = async (aircraftRegistration: string | null, picName: string | null) => {
     try {
@@ -168,7 +170,7 @@ const PNCreate = () => {
       }
 
       // For PIC
-      if (picName) {
+      if (picName) { 
         const currentPICs = PICPersons || [];
         const picExists = currentPICs.some(pic => 
           pic.toLowerCase() === picName.toLowerCase()
