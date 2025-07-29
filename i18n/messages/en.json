@@ -445,5 +445,46 @@
     "downloadButton": "Download PDF",
     "pdfTitle": "EFNU Operations Handbook",
     "mobileWarning": "For best experience, access on Laptop"
+  },
+  "Fees": {
+
+    "title": "Aircraft Landing and Usage Fees",
+
+    "aircraftType": "Aircraft Type",
+    "perLanding": "Per Landing",
+    "extraDay": "Extra Day",
+    "weeklyParking": "Parking / Week",
+    "price": "Price",
+    "type": "Type",
+
+    "landing.title": "Landing Fees",
+    "landing.note": "Fees include up to 24h parking. VAT 24% included.",
+    "balloons": "Balloons",
+    "sailplanes": "Sailplanes",
+    "motorSmall": "Motorized < 2000 kg",
+    "motorMid": "Motorized 2000–10000 kg",
+    "larger": "Larger aircraft",
+    "noFee": "No fee (PIC fee required)",
+    "agreement": "By agreement",
+    "ifrFee": "IFR Approach Fee",
+    "fuelingFee": "Fueling Fee",
+
+    "season.title": "Season Cards (Home-Based Aircraft)",
+    "seasonDetails": "60% for arrivals after July, 20% for Nov grounded arrivals.",
+
+    "glider": "Glider",
+    "acft650": "Aircraft ≤ 650 kg",
+    "acft2000": "Aircraft ≤ 2000 kg",
+    "acft5000": "Aircraft ≤ 5000 kg",
+
+    "winter.title": "Winter & IFR Cards",
+    "winter.season": "Winter Season (1.12 – 31.3)",
+    "nightVFR": "Night-VFR (included in IFR)",
+    "ifrCard": "IFR Card (on top of normal)",
+
+    "pic.title": "Pilot-in-Command Fees",
+    "annual": "Annual PIC Fee",
+    "oneTime": "One-Time Landing PIC Fee",
+    "additionalIFR": "Additional IFR Fee"
   }
 }

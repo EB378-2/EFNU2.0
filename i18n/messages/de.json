@@ -435,5 +435,46 @@
     "downloadButton": "PDF herunterladen",
     "pdfTitle": "EFNU Operationshandbuch",
     "mobileWarning": "Für die beste Erfahrung nutzen Sie bitte einen Laptop"
-  }
+  }, 
+  "Fees": {
+  "title": "Lande- und Nutzungsgebühren für Luftfahrzeuge",
+
+  "aircraftType": "Flugzeugtyp",
+  "perLanding": "Pro Landung",
+  "extraDay": "Zusätzlicher Tag",
+  "weeklyParking": "Parken / Woche",
+  "price": "Preis",
+  "type": "Typ",
+
+  "landing.title": "Landegebühren",
+  "landing.note": "Gebühren beinhalten bis zu 24 Stunden Parken. 24 % MwSt. inbegriffen.",
+  "balloons": "Ballons",
+  "sailplanes": "Segelflugzeuge",
+  "motorSmall": "Motorisiert < 2000 kg",
+  "motorMid": "Motorisiert 2000–10000 kg",
+  "larger": "Größere Luftfahrzeuge",
+  "noFee": "Keine Gebühr (PIC-Gebühr erforderlich)",
+  "agreement": "Nach Vereinbarung",
+  "ifrFee": "IFR-Anfluggebühr",
+  "fuelingFee": "Betankungsgebühr",
+
+  "season.title": "Saisonkarten (Stationierte Flugzeuge)",
+  "seasonDetails": "60 % Rabatt bei Ankunft nach Juli, 20 % für im November stationierte Flugzeuge.",
+
+  "glider": "Segelflugzeug",
+  "acft650": "Flugzeug ≤ 650 kg",
+  "acft2000": "Flugzeug ≤ 2000 kg",
+  "acft5000": "Flugzeug ≤ 5000 kg",
+
+  "winter.title": "Winter- & IFR-Karten",
+  "winter.season": "Wintersaison (1.12 – 31.3)",
+  "nightVFR": "Nacht-VFR (in IFR enthalten)",
+  "ifrCard": "IFR-Karte (zusätzlich zum regulären)",
+
+  "pic.title": "Kommandanten-Gebühren",
+  "annual": "Jährliche PIC-Gebühr",
+  "oneTime": "Einmalige PIC-Landegebühr",
+  "additionalIFR": "Zusätzliche IFR-Gebühr"
+}
+
 }

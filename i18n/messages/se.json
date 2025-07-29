@@ -413,5 +413,46 @@
     "downloadButton": "Ladda ner PDF",
     "pdfTitle": "EFNU Operationshandbok",
     "mobileWarning": "För bästa upplevelse, använd en laptop"
-  }
+  }, 
+  "Fees": {
+  "title": "Avgifter för landning och användning av luftfartyg",
+
+  "aircraftType": "Flygplanstyp",
+  "perLanding": "Per landning",
+  "extraDay": "Extra dag",
+  "weeklyParking": "Parkering / vecka",
+  "price": "Pris",
+  "type": "Typ",
+
+  "landing.title": "Landningsavgifter",
+  "landing.note": "Avgifterna inkluderar upp till 24 timmars parkering. 24% moms ingår.",
+  "balloons": "Ballonger",
+  "sailplanes": "Segelflygplan",
+  "motorSmall": "Motoriserade < 2000 kg",
+  "motorMid": "Motoriserade 2000–10000 kg",
+  "larger": "Större luftfartyg",
+  "noFee": "Ingen avgift (PIC-avgift krävs)",
+  "agreement": "Enligt överenskommelse",
+  "ifrFee": "IFR-inflygningsavgift",
+  "fuelingFee": "Tankningsavgift",
+
+  "season.title": "Säsongskort (baserade flygplan)",
+  "seasonDetails": "60% för ankomster efter juli, 20% för ankomster som står i november.",
+
+  "glider": "Segelflygplan",
+  "acft650": "Flygplan ≤ 650 kg",
+  "acft2000": "Flygplan ≤ 2000 kg",
+  "acft5000": "Flygplan ≤ 5000 kg",
+
+  "winter.title": "Vinter- & IFR-kort",
+  "winter.season": "Vintersäsong (1.12 – 31.3)",
+  "nightVFR": "Natt-VFR (ingår i IFR)",
+  "ifrCard": "IFR-kort (utöver ordinarie)",
+
+  "pic.title": "Avgifter för befälhavare",
+  "annual": "Årlig PIC-avgift",
+  "oneTime": "Engångs PIC-landningsavgift",
+  "additionalIFR": "Ytterligare IFR-avgift"
+}
+
 }

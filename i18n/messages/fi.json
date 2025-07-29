@@ -439,5 +439,46 @@
     "EventNotFound": "Tapahtumaa ei löytynyt",
     "The event you're looking for doesn't exist or may have been removed": "The event you're looking for doesn't exist or may have been removed.",
     "BackToCalendar": "Takaisin kalenteriin"
-  }
+  },
+  "Fees": {
+  "title": "Lentokoneiden lasku- ja käyttömaksut",
+
+  "aircraftType": "Lentokonetyyppi",
+  "perLanding": "Laskua kohden",
+  "extraDay": "Lisäpäivä",
+  "weeklyParking": "Pysäköinti / viikko",
+  "price": "Hinta",
+  "type": "Tyyppi",
+
+  "landing.title": "Laskumaksut",
+  "landing.note": "Maksut sisältävät enintään 24 tunnin pysäköinnin. ALV 24% sisältyy hintaan.",
+  "balloons": "Ilmapallot",
+  "sailplanes": "Purjelentokoneet",
+  "motorSmall": "Moottoroidut < 2000 kg",
+  "motorMid": "Moottoroidut 2000–10000 kg",
+  "larger": "Suuremmat ilma-alukset",
+  "noFee": "Ei maksua (vaatii päällikön maksun)",
+  "agreement": "Sopimuksen mukaan",
+  "ifrFee": "IFR-lähestymismaksu",
+  "fuelingFee": "Tankkausmaksu",
+
+  "season.title": "Kausikortit (Kotitukikohdan ilma-alukset)",
+  "seasonDetails": "60% alennus heinäkuun jälkeen saapuville, 20% marraskuussa maahan jääville.",
+
+  "glider": "Purjelentokone",
+  "acft650": "Ilma-alus ≤ 650 kg",
+  "acft2000": "Ilma-alus ≤ 2000 kg",
+  "acft5000": "Ilma-alus ≤ 5000 kg",
+
+  "winter.title": "Talvi- ja IFR-kortit",
+  "winter.season": "Talvikausi (1.12 – 31.3)",
+  "nightVFR": "Yölento-VFR (sisältyy IFR-korttiin)",
+  "ifrCard": "IFR-kortti (normaalin lisäksi)",
+
+  "pic.title": "Päällikön maksut",
+  "annual": "Vuotuinen päällikön käyttömaksu",
+  "oneTime": "Kertaluontoinen päällikön laskumaksu",
+  "additionalIFR": "Lisä-IFR-maksu"
+}
+
 }
