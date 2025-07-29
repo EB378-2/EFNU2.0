@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { ProfileAvatar } from '@components/functions/FetchFunctions';
 import { useGetIdentity } from '@refinedev/core';
 import Link from '@node_modules/next/link';
+import { useList } from '@refinedev/core';
+import { useRouter } from 'next/navigation';
 
 const pulse = keyframes`
   0% { transform: scale(1); }
@@ -73,6 +75,7 @@ export default function AdminNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { data: identityData } = useGetIdentity<{ id: string }>();
   const uid = identityData?.id as string;
+  const router = useRouter();
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -100,11 +103,14 @@ export default function AdminNav() {
     { label: 'Blog', href: '/admin/blog', icon: <Dashboard />, active: pathname.startsWith('/admin/blog') },
   ];
 
-  const notifications = [
-    { id: 1, text: 'New user registration', time: '2 min ago', read: false },
-    { id: 2, text: 'System maintenance scheduled', time: '1 hour ago', read: true },
-    { id: 3, text: 'Flight delay alert', time: '3 hours ago', read: true },
-  ];
+  const notifications = useList({
+    resource: 'notifications',
+    config: {
+      pagination: {
+        pageSize: 5,
+      },
+    },
+  })
 
   return (
     <GradientAppBar position="sticky" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -222,24 +228,8 @@ export default function AdminNav() {
         >
           <Box sx={{ p: 2, bgcolor: 'primary.main', color: 'common.white' }}>
             <Typography variant="h6">Notifications</Typography>
-            <Typography variant="body2">You have 3 new notifications</Typography>
           </Box>
-          {notifications.map((notification) => (
-            <MenuItem 
-              key={notification.id} 
-              onClick={handleClose}
-              sx={{ 
-                bgcolor: notification.read ? 'inherit' : 'action.hover',
-                borderLeft: notification.read ? 'none' : '4px solid primary.main'
-              }}
-            >
-              <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-                <Typography variant="body1">{notification.text}</Typography>
-                <Typography variant="caption" color="text.secondary">{notification.time}</Typography>
-              </Box>
-            </MenuItem>
-          ))}
-          <MenuItem sx={{ justifyContent: 'center', bgcolor: 'action.hover' }}>
+          <MenuItem sx={{ justifyContent: 'center', bgcolor: 'action.hover' }} onClick={()=> router.push('/admin/notifications')}>
             <Typography variant="body2" color="primary">View All Notifications</Typography>
           </MenuItem>
         </Menu>
