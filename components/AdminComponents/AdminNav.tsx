@@ -103,14 +103,6 @@ export default function AdminNav() {
     { label: 'Blog', href: '/admin/blog', icon: <Dashboard />, active: pathname.startsWith('/admin/blog') },
   ];
 
-  const notifications = useList({
-    resource: 'notifications',
-    config: {
-      pagination: {
-        pageSize: 5,
-      },
-    },
-  })
 
   return (
     <GradientAppBar position="sticky" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -130,7 +122,7 @@ export default function AdminNav() {
           <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
             <Flight sx={{ fontSize: 32, mr: 1 }} />
             <Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
-              EkoAdmin
+              EFNU Admin
             </Typography>
           </Box>
         </Link>
