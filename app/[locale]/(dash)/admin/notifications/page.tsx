@@ -28,7 +28,7 @@ export default function NotificationsPage() {
     isLoading,
     isError,
   } = useList<Notification>({
-    resource: 'notifications',
+    resource: 'Notifications',
     pagination: { mode: 'off' }, // disable pagination if you want all
   });
 
