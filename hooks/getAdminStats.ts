@@ -4,33 +4,31 @@
 import { useList } from "@refinedev/core";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { useMemo } from "react";
 
 dayjs.extend(utc);
 
 export function useProfileStats() {
-  const startOfDay = dayjs().utc().startOf('day').format();
-  const endOfDay = dayjs().utc().endOf('day').format();
-  
+  const [startOfDay, endOfDay] = useMemo(() => {
+    const start = dayjs().utc().startOf('day').format();
+    const end = dayjs().utc().endOf('day').format();
+    return [start, end];
+  }, []);
+
   const { data: totalData } = useList({
     resource: "profiles",
     config: { pagination: { mode: "off" } },
     meta: { select: "count" },
   });
 
+  const filters = useMemo(() => ([
+    { field: "created_at", operator: "gte" as const, value: startOfDay },
+    { field: "created_at", operator: "lte" as const, value: endOfDay },
+  ]), [startOfDay, endOfDay]);
+
   const { data: todayData } = useList({
     resource: "profiles",
-    filters: [
-      {
-        field: "created_at",
-        operator: "gte",
-        value: startOfDay,
-      },
-      {
-        field: "created_at",
-        operator: "lte",
-        value: dayjs(endOfDay).endOf('day').toISOString(),
-      }
-    ],
+    filters,
   });
 
   return {
@@ -39,61 +37,56 @@ export function useProfileStats() {
   };
 }
 
+
 export function usePnApprovalsToCome() {
-  const now = dayjs().utc();
-  
+  const now = useMemo(() => dayjs().utc(), []);
+
+  const filters = useMemo(() => ([
+    { field: "status", operator: "eq" as const, value: "pending" },
+    { field: "dof", operator: "gte" as const, value: now.format('YYYY-MM-DD') }
+  ]), [now]);
+
   const { data: pendingFlightsData } = useList({
     resource: "priornotice",
-    filters: [
-      {
-        field: "status",
-        operator: "eq",
-        value: "pending"
-      },
-      {
-        field: "dof",
-        operator: "gte",
-        value: now.format('YYYY-MM-DD')
-      }
-    ]
+    filters,
   });
 
-  // Filter to only include flights that haven't arrived yet
-  const pendingFutureFlights = (pendingFlightsData?.data || []).filter(flight => {
-    const flightDateTime = dayjs.utc(`${flight.arr_date} ${flight.arr_time}`, 'YYYY-MM-DD HHmm');
-    return flightDateTime.isAfter(now);
-  });
+  const pendingFutureFlights = useMemo(() => {
+    return (pendingFlightsData?.data || []).filter(flight => {
+      const flightDateTime = dayjs.utc(`${flight.arr_date} ${flight.arr_time}`, 'YYYY-MM-DD HHmm');
+      return flightDateTime.isAfter(now);
+    });
+  }, [pendingFlightsData?.data, now]);
 
   return {
     PnApprovalsToCome: pendingFutureFlights.length,
   };
 }
 
+
 export function usePNStatsToday() {
-  const todayStart = dayjs().utc().startOf('day').format('YYYY-MM-DD');
-  const todayEnd = dayjs().utc().endOf('day').format('YYYY-MM-DD');
-  
+  const [todayStart, now] = useMemo(() => {
+    const start = dayjs().utc().startOf('day').format('YYYY-MM-DD');
+    const current = dayjs().utc();
+    return [start, current];
+  }, []);
+
+  const filters = useMemo(() => ([
+    { field: "dof", operator: "eq" as const, value: todayStart },
+    { field: "status", operator: "in" as const, value: ["approved", "pending"] }
+  ]), [todayStart]);
+
   const { data: todaysFlightsData } = useList({
     resource: "priornotice",
-    filters: [
-      {
-        field: "dof",
-        operator: "eq",
-        value: todayStart
-      },
-      {
-        field: "status",
-        operator: "in",
-        value: ["approved", "pending"]
-      }
-    ]
+    filters,
   });
 
-  // Filter to only include flights that haven't departed yet
-  const upcomingFlights = (todaysFlightsData?.data || []).filter(flight => {
-    const flightDateTime = dayjs.utc(`${flight.dep_date} ${flight.dep_time}`, 'YYYY-MM-DD HHmm');
-    return flightDateTime.isAfter(dayjs().utc());
-  });
+  const upcomingFlights = useMemo(() => {
+    return (todaysFlightsData?.data || []).filter(flight => {
+      const flightDateTime = dayjs.utc(`${flight.dep_date} ${flight.dep_time}`, 'YYYY-MM-DD HHmm');
+      return flightDateTime.isAfter(now);
+    });
+  }, [todaysFlightsData?.data, now]);
 
   return {
     TodaysApprovedPendingFlights: todaysFlightsData?.data?.length || 0,
@@ -103,20 +96,24 @@ export function usePNStatsToday() {
 
 
 export function useRecentIncidents() {
-  const oneWeekAgo = dayjs().utc().subtract(1, 'week').format('YYYY-MM-DD HH:mm:ss.SSSSSS[+00]');
-  
+  const oneWeekAgo = useMemo(() =>
+    dayjs().utc().subtract(1, 'week').format('YYYY-MM-DD HH:mm:ss.SSSSSS[+00]'),
+  []);
+
+  const filters = useMemo(() => ([
+    {
+      field: "reported_at",
+      operator: "gte" as const,
+      value: oneWeekAgo,
+    },
+  ]), [oneWeekAgo]);
+
   const { data } = useList({
-    resource: "sms",  // Changed from "sms" to "incidents"
-    filters: [
-      {
-        field: "reported_at",  // Changed to appropriate date field
-        operator: "gte",       // Changed to "gte" (greater than or equal)
-        value: oneWeekAgo
-      }
-    ]
+    resource: "sms",
+    filters,
   });
 
   return {
-    recentIncidentsCount: data?.data?.length || 0,  // Better naming
+    recentIncidentsCount: data?.data?.length || 0,
   };
 }
