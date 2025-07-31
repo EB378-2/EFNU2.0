@@ -118,8 +118,7 @@ export const authProviderClient: AuthProvider & {
     const supabase = await supabaseBrowserClient();
     const { data, error } = await supabase.auth.signInWithIdToken({
       provider: "google",
-      token: credential,
-      nonce: "<NONCE>", // Replace this with your nonce if verifying
+      token: credential
     });
 
     if (error) {
