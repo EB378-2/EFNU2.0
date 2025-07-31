@@ -13,7 +13,7 @@ export const GoogleSignUpButton = () => {
 
     if (!credential) return;
 
-    const { error } = await authProviderClient.signInWithGoogle?.({ credential });
+    const { error } = await authProviderClient.signUpWithGoogle?.({ credential });
 
     if (error) {
       console.error("Google Sign-In Error:", error.message);
