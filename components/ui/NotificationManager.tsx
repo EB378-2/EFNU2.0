@@ -19,6 +19,14 @@ export default function NotificationManager() {
   const [alreadyInitialized, setAlreadyInitialized] = useState(false);
   const role = ProfileRoleNotification({ profileId: userId }) as string;
 
+  const checkSubscriptionStatus = () => {
+    const subId = OneSignal.User.PushSubscription.id;
+    const permission = Notification?.permission;
+    const isEnabled = !!subId && permission === 'granted';
+    console.log(`Subscription ID: ${subId}, Permission: ${permission}`);
+    setEnabled(isEnabled);
+  };
+
   useEffect(() => {
     if (!alreadyInitialized && typeof window !== 'undefined') {
       const initOneSignal = async () => {
@@ -49,13 +57,10 @@ export default function NotificationManager() {
             }
           });
 
-          // ✅ Immediately check existing subscription via `.id`
-          const subId = OneSignal.User.PushSubscription.id;
-          setEnabled(!!subId);
+          checkSubscriptionStatus();
 
-          // ✅ Listen for changes
-          OneSignal.User.PushSubscription.addEventListener('change', event => {
-            setEnabled(!!event.current.id);
+          OneSignal.User.PushSubscription.addEventListener('change', () => {
+            checkSubscriptionStatus();
           });
 
           OneSignal.Notifications.addEventListener(
@@ -81,15 +86,14 @@ export default function NotificationManager() {
     console.log('Prompting and tagging...');
     await OneSignal.Slidedown.promptPush({
       force: true,
-      forceSlidedownOverNative: true
+      forceSlidedownOverNative: true,
     });
 
     await OneSignal.User.PushSubscription.optIn();
     await OneSignal.User.addTag('user_role', role);
     await OneSignal.login(userId);
 
-    const subId = OneSignal.User.PushSubscription.id;
-    setEnabled(!!subId);
+    checkSubscriptionStatus();
 
     console.log('User tagged and logged in:', { userId, role });
   };
