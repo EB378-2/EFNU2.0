@@ -457,8 +457,9 @@
     "price": "Price",
     "type": "Type",
 
-    "landing.title": "Landing Fees",
-    "landing.note": "Fees include up to 24h parking. VAT 24% included.",
+    "landing": {
+    "title": "Landing Fees",
+    "note": "Fees include up to 24h parking. VAT 24% included.",
     "balloons": "Balloons",
     "sailplanes": "Sailplanes",
     "motorSmall": "Motorized < 2000 kg",
@@ -467,24 +468,27 @@
     "noFee": "No fee (PIC fee required)",
     "agreement": "By agreement",
     "ifrFee": "IFR Approach Fee",
-    "fuelingFee": "Fueling Fee",
-
-    "season.title": "Season Cards (Home-Based Aircraft)",
-    "seasonDetails": "60% for arrivals after July, 20% for Nov grounded arrivals.",
-
+    "fuelingFee": "Fueling Fee"
+  },
+  "season": {
+    "title": "Season Cards (Home-Based Aircraft)",
+    "seasonDetails": "60% for arrivals after July, 20% for Nov grounded arrivals."
+},
     "glider": "Glider",
     "acft650": "Aircraft ≤ 650 kg",
     "acft2000": "Aircraft ≤ 2000 kg",
     "acft5000": "Aircraft ≤ 5000 kg",
-
-    "winter.title": "Winter & IFR Cards",
+    "winter":{
+    "title": "Winter & IFR Cards",
     "winter.season": "Winter Season (1.12 – 31.3)",
     "nightVFR": "Night-VFR (included in IFR)",
-    "ifrCard": "IFR Card (on top of normal)",
-
-    "pic.title": "Pilot-in-Command Fees",
+    "ifrCard": "IFR Card (on top of normal)"
+    },
+    "pic":{ 
+    "title": "Pilot-in-Command Fees",
     "annual": "Annual PIC Fee",
     "oneTime": "One-Time Landing PIC Fee",
     "additionalIFR": "Additional IFR Fee"
+    }
   }
 }

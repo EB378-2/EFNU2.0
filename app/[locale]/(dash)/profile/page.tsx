@@ -42,7 +42,7 @@ import { useTranslations } from "next-intl";
 import QuickAccessSettings from "@components/Profile/QuickAccessSettings";
 import { Spinner } from "@components/ui/Spinner";
 import { NotificationSettings } from "@components/ui/NotificationSettings";
-
+import Demo from "@components/ui/test";
 
 const Profile = () => {
   const { open } = useNotification();
@@ -87,6 +87,19 @@ const Profile = () => {
           <Typography variant="h4" component="h1" fontWeight="bold">
           {t("Profile")}
           </Typography>
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <NotificationSettings />
+            <IconButton
+              color="inherit"
+              onClick={() => {
+                setMode();
+              }}
+            >
+              {mode === "dark" ? <LightModeOutlined /> : <DarkModeOutlined />}
+            </IconButton>
+            <LanguageSwitcher/>
+            <Demo />
+          </Box>
         </Box>
 
         <Grid container spacing={3}>
@@ -143,16 +156,6 @@ const Profile = () => {
                     LinkComponent={"button"}
                     variant="outlined"
                   />
-                  <IconButton
-                    color="inherit"
-                    onClick={() => {
-                      setMode();
-                    }}
-                  >
-                    {mode === "dark" ? <LightModeOutlined /> : <DarkModeOutlined />}
-                  </IconButton>
-                  <LanguageSwitcher/>
-                  <NotificationSettings />
                 </CardActions>
               </Card>
             </Grid>
