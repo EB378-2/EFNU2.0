@@ -76,21 +76,19 @@ export default function NotificationManager() {
   const handleTagAndSubscribe = async () => {
     if (!userId || !role) return;
 
-    console.log('Tagging and subscribing...');
-    await OneSignal.User.PushSubscription.optIn();
-    await OneSignal.User.addTag('user_role', role);
-    await OneSignal.login(userId);
-    await OneSignal.Slidedown.promptPush();
-    console.log('User tagged and logged in:', { userId, role });
-  };
-
-  const handlePromptLaunch = async () => {
     console.log('Launching prompt...');
     await OneSignal.Slidedown.promptPush({
       force: true,
       forceSlidedownOverNative: true
     });
     console.log('Prompt launched.');
+
+    console.log('Tagging and subscribing...');
+    await OneSignal.User.PushSubscription.optIn();
+    await OneSignal.User.addTag('user_role', role);
+    await OneSignal.login(userId);
+    await OneSignal.Slidedown.promptPush();
+    console.log('User tagged and logged in:', { userId, role });
   };
 
   return (
@@ -107,13 +105,6 @@ export default function NotificationManager() {
           {enabled ? <Notifications /> : <NotificationsOff />}
         </IconButton>
 
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={handlePromptLaunch}
-        >
-          Launch Prompt
-        </Button>
       </Box>
     </Box>
   );
