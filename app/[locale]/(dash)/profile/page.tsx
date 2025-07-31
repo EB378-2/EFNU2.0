@@ -41,8 +41,7 @@ import LanguageSwitcher from "@components/ui/LanguageSwitcher";
 import { useTranslations } from "next-intl";
 import QuickAccessSettings from "@components/Profile/QuickAccessSettings";
 import { Spinner } from "@components/ui/Spinner";
-import { NotificationSettings } from "@components/ui/NotificationSettings";
-import Demo from "@components/ui/test";
+import NotificationManager from "@components/ui/NotificationManager";
 
 const Profile = () => {
   const { open } = useNotification();
@@ -88,7 +87,7 @@ const Profile = () => {
           {t("Profile")}
           </Typography>
           <Box sx={{ display: 'flex', gap: 2 }}>
-            <NotificationSettings />
+            <NotificationManager />
             <IconButton
               color="inherit"
               onClick={() => {
@@ -98,7 +97,6 @@ const Profile = () => {
               {mode === "dark" ? <LightModeOutlined /> : <DarkModeOutlined />}
             </IconButton>
             <LanguageSwitcher/>
-            <Demo />
           </Box>
         </Box>
 

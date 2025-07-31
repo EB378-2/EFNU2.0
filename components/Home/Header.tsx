@@ -39,9 +39,7 @@ export default function Header() {
   return (
     <Box sx={{ mb: 4, textAlign: "center", color: theme.palette.primary.contrastText }}>
         <Typography variant="overline" sx={{ opacity: 0.7 }}>{todayDate}</Typography>
-        <Typography variant="h3" sx={{ fontWeight: 800, mb: 1 }}>{t("title")}
-          ONGOING UPDATES, SOME ERRORS MAY BE VISIBLE!
-        </Typography>
+        <Typography variant="h3" sx={{ fontWeight: 800, mb: 1 }}>{t("title")}</Typography>
         <Suspense fallback={<Spinner />}>
             <Stack direction="row" spacing={2} justifyContent="center">
             <Typography variant="body2">LCL: {localTime}</Typography>
