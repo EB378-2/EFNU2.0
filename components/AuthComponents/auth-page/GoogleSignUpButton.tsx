@@ -45,17 +45,7 @@ export const GoogleSignUpButton = () => {
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
-      <GoogleLogin
-        onSuccess={handleGoogleSuccess}
-        onError={handleGoogleFailure}
-        text="signup_with"
-        width="100%"
-        useOneTap
-        auto_select
-        theme="filled_blue"
-        shape="rectangular"
-        size="large"
-      />
+      <GoogleSignUpButton/>
     </GoogleOAuthProvider>
   );
 };
