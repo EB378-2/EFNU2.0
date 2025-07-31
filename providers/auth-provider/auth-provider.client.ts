@@ -6,6 +6,7 @@ import { supabaseBrowserClient } from "@utils/supabase/client";
 
 export const authProviderClient: AuthProvider & {
   signInWithGoogle?: (response: { credential: string }) => Promise<any>;
+  signUpWithGoogle?: (response: { credential: string }) => Promise<any>;
 } = {
   login: async ({ email, password }) => {
     const supabase = await supabaseBrowserClient();
@@ -126,5 +127,42 @@ export const authProviderClient: AuthProvider & {
     }
 
     return { data, error };
+  },
+
+
+  signUpWithGoogle: async ({ credential }) => {
+    const supabase = await supabaseBrowserClient();
+    const defaultMetadata = {
+      fullname: "",
+      license: "",
+      role: "pilot",
+      status: "active",
+    };
+
+    try {
+      // 1. Sign in with Google
+      const { data: { user }, error: authError } = await supabase.auth.signInWithIdToken({
+        provider: "google",
+        token: credential,
+      });
+
+      if (authError) return { success: false, error: authError };
+
+      // 2. Update user metadata (only if this is a new user)
+      if (user) {
+        const { error: updateError } = await supabase.auth.updateUser({
+          data: defaultMetadata
+        });
+
+        if (updateError) {
+          console.error("Failed to update user metadata:", updateError);
+          // You might want to handle this case differently
+        }
+      }
+
+      return { success: true, redirectTo: "/" };
+    } catch (error: any) {
+      return { success: false, error };
+    }
   },
 };
