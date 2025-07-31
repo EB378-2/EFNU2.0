@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react';
 import OneSignal from 'react-onesignal';
 import { useGetIdentity } from '@refinedev/core';
-import { Box, IconButton, Typography, Button } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import { Notifications, NotificationsOff } from '@mui/icons-material';
-import { ProfileRoleNotification } from '../functions/FetchFunctions'; // Adjust as needed
+import { ProfileRoleNotification } from '../functions/FetchFunctions';
 
 type User = {
   id: string;
@@ -15,8 +15,7 @@ export default function NotificationManager() {
   const { data: user } = useGetIdentity<User>();
   const userId = user?.id || '';
 
-  const [subscriptionId, setSubscriptionId] = useState<string | null>(null);
-  const [enabled, setEnabled] = useState<boolean | null>(null);
+  const [enabled, setEnabled] = useState<boolean>(false);
   const [alreadyInitialized, setAlreadyInitialized] = useState(false);
   const role = ProfileRoleNotification({ profileId: userId }) as string;
 
@@ -50,10 +49,13 @@ export default function NotificationManager() {
             }
           });
 
+          // ✅ Immediately check existing subscription via `.id`
+          const subId = OneSignal.User.PushSubscription.id;
+          setEnabled(!!subId);
+
+          // ✅ Listen for changes
           OneSignal.User.PushSubscription.addEventListener('change', event => {
-            const subId = event.current.id || null;
-            setSubscriptionId(subId);
-            setEnabled(!!subId);
+            setEnabled(!!event.current.id);
           });
 
           OneSignal.Notifications.addEventListener(
@@ -76,35 +78,31 @@ export default function NotificationManager() {
   const handleTagAndSubscribe = async () => {
     if (!userId || !role) return;
 
-    console.log('Launching prompt...');
+    console.log('Prompting and tagging...');
     await OneSignal.Slidedown.promptPush({
       force: true,
       forceSlidedownOverNative: true
     });
-    console.log('Prompt launched.');
 
-    console.log('Tagging and subscribing...');
     await OneSignal.User.PushSubscription.optIn();
     await OneSignal.User.addTag('user_role', role);
     await OneSignal.login(userId);
-    await OneSignal.Slidedown.promptPush();
+
+    const subId = OneSignal.User.PushSubscription.id;
+    setEnabled(!!subId);
+
     console.log('User tagged and logged in:', { userId, role });
   };
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
-      <Typography variant="h6">
-        Subscription ID:{' '}
-        <span style={{ fontFamily: 'monospace', background: '#111', color: '#9f0', padding: '2px 6px' }}>
-          {subscriptionId || 'Anonymous'}
-        </span>
-      </Typography>
-
       <Box display="flex" alignItems="center" gap={2}>
-        <IconButton onClick={handleTagAndSubscribe} color={enabled ? 'primary' : 'default'}>
+        <IconButton
+          onClick={handleTagAndSubscribe}
+          color={enabled ? 'primary' : 'default'}
+        >
           {enabled ? <Notifications /> : <NotificationsOff />}
         </IconButton>
-
       </Box>
     </Box>
   );
