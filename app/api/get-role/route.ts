@@ -5,7 +5,6 @@ import { NextResponse } from 'next/server';
 export async function GET() {
   try {
     const permissions = await authProviderServer.getPermissions?.();
-    localStorage.setItem('user-role', permissions as string);
     return NextResponse.json({ role: permissions || 'anonymous' });
   } catch (error) {
     return NextResponse.json(

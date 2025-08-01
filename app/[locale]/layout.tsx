@@ -3,6 +3,7 @@
 import React, { Suspense, useState, useEffect } from "react";
 import { Spinner } from "@components/ui/Spinner";
 import { NextIntlClientProvider } from "next-intl";
+import { SessionSync } from "@components/Layout/SessionSync";
 
 export default function Layout({ 
     children, 
@@ -27,6 +28,7 @@ export default function Layout({
             <Suspense fallback={<Spinner/>}>
                 <NextIntlClientProvider messages={messages} locale={locale}>
                     {children}
+                    <SessionSync />
                 </NextIntlClientProvider>
             </Suspense>
         </>
