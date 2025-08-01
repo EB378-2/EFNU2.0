@@ -5,7 +5,6 @@ import { useLogin, useRegister } from "@refinedev/core";
 import { TextField, Box, Button, Typography, Link, Divider } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { GoogleAuthButton } from "@components/AuthComponents/auth-page/GoogleAuthButton";
-import { GoogleSignUpButton } from "@components/AuthComponents/auth-page/GoogleSignUpButton";
 
 
 type AuthPageProps = {
@@ -111,7 +110,7 @@ export const AuthPage = ({ type }: AuthPageProps) => {
 
       <Divider sx={{ my: 3 }}>or</Divider>
 
-      {type === "register" ? <GoogleSignUpButton /> : <GoogleAuthButton />}
+      <GoogleAuthButton />
 
       <Box mt={2} textAlign="center">
         {type === "register" ? (
