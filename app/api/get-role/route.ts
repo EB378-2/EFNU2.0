@@ -5,7 +5,8 @@ import { NextResponse } from 'next/server';
 export async function GET() {
   try {
     const permissions = await authProviderServer.getPermissions?.();
-    return NextResponse.json({ role: permissions || 'anonymous' });
+    console.log('Fetched permissions:', permissions);
+    return NextResponse.json({ role: permissions || 'test' });
   } catch (error) {
     return NextResponse.json(
       { role: 'anonymous' },
