@@ -118,15 +118,47 @@ export const authProviderClient: AuthProvider & {
   // ✅ Google ID Token Sign-in method
   signInWithGoogle: async ({ credential }) => {
     const supabase = await supabaseBrowserClient();
+
     const { data, error } = await supabase.auth.signInWithIdToken({
       provider: "google",
-      token: credential
+      token: credential,
     });
 
     if (error) {
       console.error("Google sign-in failed:", error);
+      return { error };
+    }
+
+    const user = data?.user;
+
+    // Set default metadata if missing
+    if (user) {
+      const metadata = user.user_metadata || {};
+
+      const updates: Record<string, string> = {};
+
+      if (!metadata.role) updates.role = "pilot";
+      if (!metadata.status) updates.status = "active";
+      
+      // Prefer Google full_name if available
+      if (!metadata.fullname) {
+        updates.fullname = metadata.full_name || user.email?.split("@")[0] || "Unnamed User";
+      }
+
+      if (!metadata.license) updates.license = "";
+
+      if (Object.keys(updates).length > 0) {
+        const { error: updateError } = await supabase.auth.updateUser({
+          data: { ...metadata, ...updates },
+        });
+
+        if (updateError) {
+          console.error("Failed to update user metadata:", updateError);
+        }
+      }
     }
 
     return { data, error };
-  },
+  }
+
 };
