@@ -30,6 +30,7 @@ export const authProviderClient: AuthProvider & {
   logout: async () => {
     const supabase = await supabaseBrowserClient();
     const { error } = await supabase.auth.signOut();
+    localStorage.removeItem("user-role");
 
     if (error) {
       return { success: false, error };
